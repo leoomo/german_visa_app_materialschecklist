@@ -95,26 +95,28 @@ export async function importFromExcel(): Promise<boolean> {
       nameToItemId.set(item.name, item.itemId);
     }
 
-    const currentCompletedItems = { ...store.completedItems };
-    const roleItems = currentCompletedItems[selectedRole] || [];
+    const roleItemsSet = new Set(store.completedItems[selectedRole] || []);
 
     // 解析第一个工作表
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
     const data = XLSX.utils.sheet_to_json<ExcelRow>(sheet);
 
-    // 根据清单名称匹配并更新勾选状态
+    // 根据清单名称匹配并更新勾选状态 (使用 Set 实现 O(1) 查找)
     for (const row of data) {
       const itemId = nameToItemId.get(row.清单名称);
-      if (itemId && !roleItems.includes(itemId)) {
-        roleItems.push(itemId);
+      if (itemId) {
+        roleItemsSet.add(itemId);
       }
     }
 
-    currentCompletedItems[selectedRole] = roleItems;
+    const roleItems = Array.from(roleItemsSet);
 
     // 更新 store
-    store.completedItems = currentCompletedItems;
+    store.completedItems = {
+      ...store.completedItems,
+      [selectedRole]: roleItems,
+    };
 
     return true;
   } catch (error) {
