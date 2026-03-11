@@ -73,14 +73,14 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
           </div>
         </div>
 
-        {/* 左侧色条 */}
+        {/* 左侧色条 - 原件黄色，复印件灰色 */}
         <div className={`
           w-[3px] self-stretch transition-colors duration-300
           ${isCompleted
             ? "bg-[#34c759]"
-            : item.isKey
+            : item.section === "原件"
               ? "bg-[#ff9500]"
-              : "bg-transparent"
+              : "bg-[#d1d1d6]"
           }
         `} />
 
@@ -108,11 +108,6 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
                 ${isCompleted ? "bg-[#e8f5e9] text-[#34c759]" : "bg-[#fff7e6] text-[#ff9500]"}
               `}>
                 原件
-              </span>
-            )}
-            {item.isKey && !isCompleted && (
-              <span className="text-[12px] font-medium bg-[#fff7e6] text-[#ff9500] px-2 py-0.5 rounded-md">
-                重要
               </span>
             )}
           </div>

@@ -32,10 +32,13 @@ export function RoleSelectPage() {
             </div>
             <div>
               <h1 className="text-[22px] font-semibold tracking-tight text-[#1d1d1f]">
-                德国留学签证清单
+                德国留学签证准备材料清单
               </h1>
-              <p className="text-[13px] text-[#86868b] mt-0.5">
-                选择您的学历背景
+              <p className="text-[13px] text-[#86868b] mt-1.5">
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-[#ff9500] to-[#ffb340] text-white font-semibold text-[12px] shadow-sm shadow-[#ff9500]/30">
+                  2025-10版
+                </span>
+                <span className="ml-2.5">选择您的学历背景</span>
               </p>
             </div>
           </div>
