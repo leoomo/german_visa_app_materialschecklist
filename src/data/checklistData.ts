@@ -60,8 +60,14 @@ const originalItems: InternalChecklistItem[] = [
     "不可修图精修",
     "模板: china.diplo.de/pdf-fotomustertafel",
   ]),
-  createItem(3, "原件", "VIDEX二维码打印件", "原件", false, "清晰打印在A4纸上", [
-    "填写网址: videx.diplo.de",
+  createItem(3, "原件", "VIDEX二维码打印件", "原件", false, "清晰打印在A4纸上，不可通过微信/邮件发送", [
+    "填写网址: https://videx.diplo.de/videx/visum-erfassung/de/videx-kurzfristiger-aufenthalt",
+    "出生地须跟护照保持一致，填写省份",
+    "本人电话/手机号码以及电子邮件地址请务必填写",
+    "护照签发日期以及有效期需跟护照保持一致",
+    "邀请人种类请选择「邀请机构/公司」,并用德语填写德国学校名以及学校地址",
+    "请勿用中文填写Videx二维码",
+    "直接保存文件按原始尺寸打印，建议多打印几份",
   ]),
   createItem(4, "原件", "德国高校录取通知书或大学预备语言班报名证明", "原件", true, "", [
     "情况一：高校录取通知书",
