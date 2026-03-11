@@ -59,6 +59,7 @@ const originalItems: InternalChecklistItem[] = [
     "35x45mm白底",
     "6个月内近照",
     "不可精修",
+    "模板: china.diplo.de/pdf-fotomustertafel",
   ]),
   createItem(3, "原件", "VIDEX二维码打印件", "原件", false, "第七页", [
     "填写网址: videx.diplo.de",
@@ -84,7 +85,9 @@ const copyItems: InternalChecklistItem[] = [
     "首页粘贴护照照片",
     "末页申请人亲笔签名（中文加拼音）",
   ]),
-  createItem(2, "复印件", "《居留法》条款告知书", "复印件", false, "申请人亲笔签名（中文加拼音）"),
+  createItem(2, "复印件", "《居留法》条款告知书", "复印件", false, "申请人亲笔签名（中文加拼音）", [
+    "下载: china.diplo.de/pdf-belehrung-zum-visumantrag",
+  ]),
   createItem(3, "复印件", "护照照片页复印件", "复印件", false),
   createItem(4, "复印件", "德国高校录取通知书复印件或大学预备语言班报名证明复印件", "复印件", false),
   createItem(5, "复印件", "大学授课语言和要求达到的语言级别的说明", "复印件", false),

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { roles } from "../data/checklistData";
 import { useAppStore } from "../stores/useAppStore";
-import { GraduationCap, CaretRight, DownloadSimple, ClipboardText } from "@phosphor-icons/react";
+import { GraduationCap, CaretRight, DownloadSimple, ClipboardText, ArrowSquareOut } from "@phosphor-icons/react";
 import { RoleType } from "../types";
 
 export function RoleSelectPage() {
@@ -60,14 +60,25 @@ export function RoleSelectPage() {
           </p>
 
           {/* PDF下载链接 */}
-          <a
-            href="/材料清单.pdf"
-            download
-            className="mt-2 inline-flex items-center gap-1.5 text-[12px] text-[#0071e3] hover:text-[#0077ed] font-medium transition-colors"
-          >
-            <DownloadSimple size={14} weight="bold" />
-            <span>下载 2025-10版本官方清单文件</span>
-          </a>
+          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+            <a
+              href="/材料清单.pdf"
+              download
+              className="inline-flex items-center gap-1.5 text-[12px] text-[#0071e3] hover:text-[#0077ed] font-medium transition-colors"
+            >
+              <DownloadSimple size={14} weight="bold" />
+              <span>2025-10版</span>
+            </a>
+            <a
+              href="https://china.diplo.de/resource/blob/1341652/8530b9e1b8358030d76875b658bcc09c/pdf-merkblatt-natvisum-studium-data.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-[12px] text-[#0071e3] hover:text-[#0077ed] font-medium transition-colors"
+            >
+              <ArrowSquareOut size={12} weight="bold" />
+              <span>2025-01版</span>
+            </a>
+          </div>
         </motion.div>
 
         <p className="text-[13px] text-[#86868b] mb-3">选择您的学历背景</p>
