@@ -15,21 +15,21 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
   const hasDetails = item.details && item.details.length > 0;
 
   return (
-    <motion.div
-      layout
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{
-        delay: Math.min(index * 0.02, 0.4),
-        type: "spring",
-        stiffness: 400,
-        damping: 30
-      }}
+    <div
       className="relative"
       onMouseEnter={() => hasDetails && setShowDetails(true)}
       onMouseLeave={() => setShowDetails(false)}
     >
       <motion.div
+        layout
+        initial={{ opacity: 0, y: 8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{
+          delay: Math.min(index * 0.02, 0.4),
+          type: "spring",
+          stiffness: 400,
+          damping: 30
+        }}
         whileHover={{ scale: 1.005 }}
         whileTap={{ scale: 0.98 }}
         className="rounded-2xl overflow-hidden bg-white cursor-pointer transition-shadow duration-200 hover:shadow-md"
@@ -105,7 +105,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
 
       {/* 悬浮详情面板 */}
       <AnimatePresence>
-        {showDetails && hasDetails && !isCompleted && (
+        {showDetails && !isCompleted && (
           <motion.div
             initial={{ opacity: 0, x: 8, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
@@ -133,6 +133,6 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
