@@ -4,6 +4,7 @@ node_modules/
 # Build outputs
 dist/
 src-tauri/target/
+src-tauri/gen/
 
 # Environment
 .env
@@ -23,6 +24,19 @@ npm-debug.log*
 .vscode/
 *.swp
 *.swo
+
+# TypeScript
+*.tsbuildinfo
+
+# Rust
+**/*.rs.bk
+
+# Security - never commit secrets
+*.pem
+*.key
+
+# Git worktrees (local only)
+.worktrees/
 
 # Misc
 *.local
