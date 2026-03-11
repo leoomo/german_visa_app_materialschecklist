@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check, CaretDown, Info } from "@phosphor-icons/react";
+import { Check } from "@phosphor-icons/react";
 import { ChecklistItem as ChecklistItemType } from "../types";
 
 // 渲染带可点击链接的文本
@@ -18,7 +18,7 @@ function renderTextWithLinks(text: string) {
           href={href}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-[#007aff] hover:underline"
+          className="text-link hover:underline"
           onClick={(e) => e.stopPropagation()}
         >
           {part}
@@ -38,7 +38,31 @@ interface ChecklistItemProps {
 
 export function ChecklistItemCard({ item, isCompleted, onToggle, index }: ChecklistItemProps) {
   const [showDetails, setShowDetails] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hasDetails = item.details && item.details.length > 0;
+
+  // 处理鼠标悬停展开详情
+  useEffect(() => {
+    if (isHovered && hasDetails && !isCompleted) {
+      // 延迟150ms展开，避免快速划过时频繁展开
+      hoverTimeoutRef.current = setTimeout(() => {
+        setShowDetails(true);
+      }, 150);
+    } else {
+      // 离开时立即收起
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+      setShowDetails(false);
+    }
+
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
+  }, [isHovered, hasDetails, isCompleted]);
 
   return (
     <motion.div
@@ -51,12 +75,18 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
         stiffness: 400,
         damping: 30
       }}
-      className="rounded-2xl overflow-hidden bg-white transition-shadow duration-200 hover:shadow-md"
+      className="rounded-2xl overflow-hidden bg-card transition-shadow duration-200 hover:shadow-md"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex items-stretch">
-        {/* 复选框 */}
-        <div
-          className="flex items-center px-4 cursor-pointer"
+      <div className="flex items-stretch group">
+        {/* 复选框 - 最小 44x44px 触摸区域 (Apple HIG 标准) */}
+        <button
+          type="button"
+          role="checkbox"
+          aria-checked={isCompleted}
+          aria-label={isCompleted ? "取消完成" : "标记为已完成"}
+          className="flex items-center justify-center min-h-[44px] min-w-[44px] px-3 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg"
           onClick={onToggle}
         >
           <div
@@ -64,23 +94,23 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
               w-6 h-6 rounded-full flex items-center justify-center
               transition-all duration-200
               ${isCompleted
-                ? "bg-[#34c759] text-white"
-                : "bg-[#e8e8ed]"
+                ? "bg-success text-white"
+                : "bg-border group-hover:bg-borderLight"
               }
             `}
           >
             {isCompleted && <Check size={14} weight="bold" />}
           </div>
-        </div>
+        </button>
 
         {/* 左侧色条 - 原件黄色，复印件灰色 */}
         <div className={`
           w-[3px] self-stretch transition-colors duration-300
           ${isCompleted
-            ? "bg-[#34c759]"
+            ? "bg-success"
             : item.section === "原件"
-              ? "bg-[#ff9500]"
-              : "bg-[#d1d1d6]"
+              ? "bg-warning"
+              : "bg-borderLight"
           }
         `} />
 
@@ -90,7 +120,8 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
             <span
               className={`
                 font-medium text-[15px] tracking-tight transition-all duration-200 cursor-pointer
-                ${isCompleted ? "text-[#86868b] line-through" : "text-[#1d1d1f]"}
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded
+                ${isCompleted ? "text-secondary line-through" : "text-primary"}
               `}
               onClick={onToggle}
             >
@@ -98,14 +129,14 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
             </span>
 
             {item.requirement !== "原件" && (
-              <span className="text-[12px] text-[#86868b] bg-[#f5f5f7] px-2 py-0.5 rounded-md">
+              <span className="text-[12px] text-secondary bg-page px-2 py-0.5 rounded-md">
                 {item.requirement}
               </span>
             )}
             {item.requirement.includes("原件") && (
               <span className={`
                 text-[12px] font-medium px-2 py-0.5 rounded-md
-                ${isCompleted ? "bg-[#e8f5e9] text-[#34c759]" : "bg-[#fff7e6] text-[#ff9500]"}
+                ${isCompleted ? "bg-successLight text-success" : "bg-warningLight text-warning"}
               `}>
                 原件
               </span>
@@ -113,27 +144,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
           </div>
 
           {item.notes && !isCompleted && (
-            <p className="text-[13px] text-[#86868b] mt-0.5">{renderTextWithLinks(item.notes)}</p>
-          )}
-
-          {/* 详情展开按钮 */}
-          {hasDetails && !isCompleted && (
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowDetails(!showDetails);
-              }}
-              className="flex items-center gap-1 mt-2 text-[12px] text-[#34c759] font-medium hover:text-[#30d158] transition-colors"
-            >
-              <Info size={12} weight="fill" />
-              <span>详情</span>
-              <motion.div
-                animate={{ rotate: showDetails ? 180 : 0 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-              >
-                <CaretDown size={12} weight="bold" />
-              </motion.div>
-            </button>
+            <p className="text-[13px] text-secondary mt-0.5">{renderTextWithLinks(item.notes)}</p>
           )}
         </div>
       </div>
@@ -148,14 +159,14 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
             className="overflow-hidden"
           >
-            <div className="px-4 pb-3 pt-1 ml-[35px] border-t border-[#e8e8ed]/50 mt-2">
+            <div className="px-4 pb-3 pt-1 ml-[35px] border-t border-border/50 mt-2">
               <ul className="space-y-1.5">
                 {item.details!.map((detail, i) => (
                   <li
                     key={i}
-                    className="text-[13px] text-[#86868b] flex items-start gap-2"
+                    className="text-[13px] text-secondary flex items-start gap-2"
                   >
-                    <span className="text-[#34c759] mt-0.5 shrink-0">•</span>
+                    <span className="text-success mt-0.5 shrink-0">•</span>
                     <span>{renderTextWithLinks(detail)}</span>
                   </li>
                 ))}
