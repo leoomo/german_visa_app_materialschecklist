@@ -49,14 +49,14 @@ export function ChecklistPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 flex flex-col">
       {/* 顶部导航 */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white border-b border-slate-200 sticky top-0 z-10"
+        className="bg-white border-b border-slate-200 shrink-0"
       >
-        <div className="max-w-3xl mx-auto px-4 py-4">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-4">
           <div className="flex items-center gap-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -87,7 +87,7 @@ export function ChecklistPage() {
       </motion.div>
 
       {/* 主内容 */}
-      <div className="max-w-3xl mx-auto px-4 py-6 space-y-6">
+      <div className="flex-1 max-w-7xl mx-auto w-full p-4 md:p-6 md:pt-4 space-y-4 overflow-y-auto">
         {/* 搜索栏 */}
         <SearchBar value={searchQuery} onChange={setSearchQuery} />
 
