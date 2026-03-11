@@ -33,7 +33,7 @@ export function RoleSelectPage() {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
                 <h1 className="text-[22px] font-semibold tracking-tight text-[#1d1d1f]">
-                  德国留学签证
+                  上海地区 德国留学签证
                 </h1>
                 <GraduationCap size={18} weight="fill" className="text-[#ff9500] shrink-0" />
               </div>
@@ -56,18 +56,18 @@ export function RoleSelectPage() {
         >
           {/* 免责申明 */}
           <p className="text-[11px] text-[#8c7000] leading-relaxed">
-            本清单基于2025年10月版整理，后续可能存在变化，请以德国驻华使领馆官方最新发布为准
+            <span className="font-semibold">特别提示：</span>本清单基于《上海留学签证特别提示》2025年10月版整理，后续可能存在变化，请以德国驻华使领馆官方最新发布为准
           </p>
 
           {/* PDF下载链接 */}
           <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
             <a
-              href="/材料清单.pdf"
+              href="/上海留学签证特别提示2025-10版.pdf"
               download
               className="inline-flex items-center gap-1.5 text-[12px] text-[#0071e3] hover:text-[#0077ed] font-medium transition-colors"
             >
               <DownloadSimple size={14} weight="bold" />
-              <span>2025-10版</span>
+              <span>特别提示2025-10版</span>
             </a>
             <a
               href="https://china.diplo.de/resource/blob/1341652/8530b9e1b8358030d76875b658bcc09c/pdf-merkblatt-natvisum-studium-data.pdf"
@@ -76,7 +76,7 @@ export function RoleSelectPage() {
               className="inline-flex items-center gap-1 text-[12px] text-[#0071e3] hover:text-[#0077ed] font-medium transition-colors"
             >
               <ArrowSquareOut size={12} weight="bold" />
-              <span>2025-01版</span>
+              <span>申请须知2025-01</span>
             </a>
           </div>
         </motion.div>
