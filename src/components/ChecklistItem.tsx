@@ -94,7 +94,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
               `}
               onClick={onToggle}
             >
-              {item.section === "复印件" ? `${item.id}.` : `${item.id}.`} {item.name}
+              {item.id}. {item.name}
             </span>
 
             {item.requirement !== "原件" && (
