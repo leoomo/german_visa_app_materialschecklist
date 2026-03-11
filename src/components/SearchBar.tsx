@@ -5,9 +5,10 @@ import { useState, useEffect } from "react";
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
+  className?: string;
 }
 
-export function SearchBar({ value, onChange }: SearchBarProps) {
+export function SearchBar({ value, onChange, className = "" }: SearchBarProps) {
   const [placeholder, setPlaceholder] = useState("");
   const fullText = "搜索材料名称...";
 
@@ -28,7 +29,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative"
+      className={`relative ${className}`}
     >
       <MagnifyingGlass
         size={20}
@@ -40,7 +41,7 @@ export function SearchBar({ value, onChange }: SearchBarProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full h-14 pl-12 pr-4 rounded-2xl border border-slate-200 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500/20 focus:border-violet-500 transition-all duration-200 shadow-sm"
+        className="w-full h-12 pl-12 pr-4 rounded-2xl border border-slate-200 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.06)]"
       />
     </motion.div>
   );
