@@ -52,18 +52,16 @@ function createItem(
 
 // 原件部分 (1-12) - 与PDF编号一致
 const originalItems: InternalChecklistItem[] = [
-  createItem(1, "原件", "护照", "原件", false),
-  createItem(2, "原件", "照片", "原件", false, "2张白底近照", [
+  createItem(1, "原件", "护照", "原件", false, "有效期不少于6个月"),
+  createItem(2, "原件", "照片", "原件", false, "2张白底近半年免冠证件照", [
     "1张夹在护照首页",
     "1张贴在签证申请表",
     "35x45mm白底",
-    "6个月内近照",
-    "不可精修",
+    "不可修图精修",
     "模板: china.diplo.de/pdf-fotomustertafel",
   ]),
-  createItem(3, "原件", "VIDEX二维码打印件", "原件", false, "第七页", [
+  createItem(3, "原件", "VIDEX二维码打印件", "原件", false, "清晰打印在A4纸上", [
     "填写网址: videx.diplo.de",
-    "清晰打印第七页二维码",
   ]),
   createItem(4, "原件", "德国高校录取通知书或大学预备语言班报名证明", "原件", true, "", [
     "情况一：高校录取通知书",
@@ -72,7 +70,7 @@ const originalItems: InternalChecklistItem[] = [
   createItem(5, "原件", "经济来源证明", "原件", true),
   createItem(6, "原件", "高中毕业证书", "原件", true, "适用于高考程序", undefined, []), // 高考程序专用，当前角色列表中不包含
   createItem(7, "原件", "中国高校在读证明/休学证明/退学证明", "原件", true, "适用于中国高校在读生", undefined, ["bachelor_in_progress", "master_in_progress"]),
-  createItem(8, "原件", "本科毕业证书和学士学位证书", "原件", true, "需附德文或英文翻译", undefined, ["bachelor_graduated", "master_in_progress", "master_graduated"]),
+  createItem(8, "原件", "本科毕业证书和学士学位证书", "原件", true, "适用于本科毕业生、硕士生在读生以及硕士毕业生", undefined, ["bachelor_graduated", "master_in_progress", "master_graduated"]),
   createItem(9, "原件", "硕士毕业证书和硕士学位证书", "原件", true, "适用于硕士毕业生", undefined, ["master_graduated"]),
   createItem(10, "原件", "入境后医疗保险证明", "原件", true),
   createItem(11, "原件", "留德人员审核部的审核证书/审核证明/审核传真", "原件", true),
