@@ -27,12 +27,5 @@
       "csp": null
     }
   },
-  "plugins": {
-    "fs": {
-      "scope": {
-        "allow": ["$APPDATA/**", "$HOME/.visachecklist/**"],
-        "deny": []
-      }
-    }
-  }
+  "plugins": {}
 }
