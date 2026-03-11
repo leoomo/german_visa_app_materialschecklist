@@ -5,79 +5,43 @@ import { getChecklistForRole, roles } from "../data/checklistData";
 import { useAppStore } from "../stores/useAppStore";
 
 export interface ExcelRow {
-  编号: number;
   类别: string;
-  材料名称: string;
-  份数: string;
-  备注: string;
-  说明: string;
-  完成状态: "是" | "否";
+  清单名称: string;
+  详情: string;
 }
 
 // 导出清单数据到 Excel
 export async function exportToExcel(): Promise<boolean> {
   try {
     const store = useAppStore.getState();
-    const completedItems = store.completedItems;
+    const { selectedRole } = store;
 
-    // 为每个角色创建工作表
+    if (!selectedRole) return false;
+
+    const role = roles.find((r) => r.id === selectedRole);
+    if (!role) return false;
+
+    const items = getChecklistForRole(selectedRole);
+
+    // 3列格式：类别、清单名称、详情
+    const data: ExcelRow[] = items.map((item) => ({
+      类别: item.section,
+      清单名称: item.name,
+      详情: item.details?.join("\n") || item.notes || "",
+    }));
+
+    // 创建工作簿和单个工作表
     const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.json_to_sheet(data);
 
-    for (const role of roles) {
-      const roleId = role.id;
-      const items = getChecklistForRole(roleId);
-      const completedSet = new Set(completedItems[roleId] || []);
+    // 设置列宽
+    worksheet["!cols"] = [
+      { wch: 10 }, // 类别
+      { wch: 40 }, // 清单名称
+      { wch: 50 }, // 详情
+    ];
 
-      // 按原件/复印件分组
-      const originalItems = items.filter((item) => item.section === "原件");
-      const copyItems = items.filter((item) => item.section === "复印件");
-
-      // 创建工作表数据
-      const originalData: ExcelRow[] = originalItems.map((item) => ({
-        编号: item.id,
-        类别: item.section,
-        材料名称: item.name,
-        份数: item.requirement,
-        备注: item.notes,
-        说明: item.details?.join("\n") || "",
-        完成状态: completedSet.has(item.itemId) ? "是" : "否",
-      }));
-
-      const copyData: ExcelRow[] = copyItems.map((item) => ({
-        编号: item.id,
-        类别: item.section,
-        材料名称: item.name,
-        份数: item.requirement,
-        备注: item.notes,
-        说明: item.details?.join("\n") || "",
-        完成状态: completedSet.has(item.itemId) ? "是" : "否",
-      }));
-
-      // 创建工作表
-      const originalSheet = XLSX.utils.json_to_sheet(originalData);
-      const copySheet = XLSX.utils.json_to_sheet(copyData);
-
-      // 设置列宽
-      originalSheet["!cols"] = [
-        { wch: 6 },  // 编号
-        { wch: 8 },  // 类别
-        { wch: 35 }, // 材料名称
-        { wch: 10 }, // 份数
-        { wch: 30 }, // 备注
-        { wch: 40 }, // 说明
-        { wch: 8 },  // 完成状态
-      ];
-
-      copySheet["!cols"] = originalSheet["!cols"];
-
-      // 添加到工作簿
-      XLSX.utils.book_append_sheet(
-        workbook,
-        originalSheet,
-        `${role.name}-原件`
-      );
-      XLSX.utils.book_append_sheet(workbook, copySheet, `${role.name}-复印件`);
-    }
+    XLSX.utils.book_append_sheet(workbook, worksheet, role.name);
 
     // 生成 Excel 文件
     const excelBuffer = XLSX.write(workbook, {
@@ -87,7 +51,7 @@ export async function exportToExcel(): Promise<boolean> {
 
     // 打开保存对话框
     const filePath = await save({
-      defaultPath: "签证清单.xlsx",
+      defaultPath: `签证清单-${role.name}.xlsx`,
       filters: [{ name: "Excel", extensions: ["xlsx"] }],
     });
 
@@ -105,6 +69,11 @@ export async function exportToExcel(): Promise<boolean> {
 // 从 Excel 导入勾选状态
 export async function importFromExcel(): Promise<boolean> {
   try {
+    const store = useAppStore.getState();
+    const { selectedRole } = store;
+
+    if (!selectedRole) return false;
+
     // 打开文件选择对话框
     const filePath = await open({
       multiple: false,
@@ -117,33 +86,32 @@ export async function importFromExcel(): Promise<boolean> {
     const fileData = await readFile(filePath as string);
     const workbook = XLSX.read(new Uint8Array(fileData), { type: "array" });
 
-    const store = useAppStore.getState();
+    // 获取当前角色的所有清单项
+    const items = getChecklistForRole(selectedRole);
+
+    // 创建名称到itemId的映射
+    const nameToItemId = new Map<string, string>();
+    for (const item of items) {
+      nameToItemId.set(item.name, item.itemId);
+    }
+
     const currentCompletedItems = { ...store.completedItems };
+    const roleItems = currentCompletedItems[selectedRole] || [];
 
-    // 解析每个工作表
-    for (const sheetName of workbook.SheetNames) {
-      const sheet = workbook.Sheets[sheetName];
-      const data = XLSX.utils.sheet_to_json<ExcelRow>(sheet);
+    // 解析第一个工作表
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const data = XLSX.utils.sheet_to_json<ExcelRow>(sheet);
 
-      // 从工作表名称提取角色
-      // 格式: "大学在读-原件", "大学在读-复印件" 等
-      const roleName = sheetName.replace("-原件", "").replace("-复印件", "");
-      const role = roles.find((r) => r.name === roleName);
-
-      if (!role) continue;
-
-      const roleId = role.id;
-
-      // 更新勾选状态
-      for (const row of data) {
-        if (row.完成状态 === "是") {
-          const itemId = `${row.类别}-${row.编号}`;
-          if (!currentCompletedItems[roleId].includes(itemId)) {
-            currentCompletedItems[roleId].push(itemId);
-          }
-        }
+    // 根据清单名称匹配并更新勾选状态
+    for (const row of data) {
+      const itemId = nameToItemId.get(row.清单名称);
+      if (itemId && !roleItems.includes(itemId)) {
+        roleItems.push(itemId);
       }
     }
+
+    currentCompletedItems[selectedRole] = roleItems;
 
     // 更新 store
     store.completedItems = currentCompletedItems;
