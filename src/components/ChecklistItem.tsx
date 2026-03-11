@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Check } from "@phosphor-icons/react";
+import { Check, CaretRight, CaretDown } from "@phosphor-icons/react";
 import { ChecklistItem as ChecklistItemType } from "../types";
 
 // 渲染带可点击链接的文本
@@ -140,6 +140,13 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
               `}>
                 原件
               </span>
+            )}
+
+            {/* 详情标识 - 有详情且未完成时显示 */}
+            {hasDetails && !isCompleted && (
+              showDetails
+                ? <CaretDown size={14} weight="bold" className="text-secondary/60 shrink-0" />
+                : <CaretRight size={14} weight="bold" className="text-secondary/60 shrink-0" />
             )}
           </div>
 
