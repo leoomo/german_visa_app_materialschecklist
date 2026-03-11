@@ -186,6 +186,14 @@ export function ChecklistPage() {
             ))
           )}
         </div>
+
+        {/* 注意事项 */}
+        <div className="mt-6 py-4 border-t border-[#e8e8ed]/50">
+          <p className="text-[12px] text-[#86868b] text-center">
+            <span className="font-medium">注意事项:</span>
+            {" "}复印件单面打印 · 不可装订 · 公证件需复印
+          </p>
+        </div>
       </div>
     </div>
   );
