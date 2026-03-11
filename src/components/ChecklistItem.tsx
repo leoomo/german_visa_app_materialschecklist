@@ -3,6 +3,32 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, CaretDown, Info } from "@phosphor-icons/react";
 import { ChecklistItem as ChecklistItemType } from "../types";
 
+// 渲染带可点击链接的文本
+function renderTextWithLinks(text: string) {
+  // 匹配 https:// 或 domain.com 格式的URL
+  const urlRegex = /(https?:\/\/[^\s]+|[a-zA-Z0-9][-a-zA-Z0-9]*\.[a-zA-Z]{2,}[^\s]*)/g;
+  const parts = text.split(urlRegex);
+
+  return parts.map((part, i) => {
+    if (part.match(urlRegex)) {
+      const href = part.startsWith('http') ? part : `https://${part}`;
+      return (
+        <a
+          key={i}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#007aff] hover:underline"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {part}
+        </a>
+      );
+    }
+    return part;
+  });
+}
+
 interface ChecklistItemProps {
   item: ChecklistItemType;
   isCompleted: boolean;
@@ -68,7 +94,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
               `}
               onClick={onToggle}
             >
-              {item.id}. {item.name}
+              {item.section === "复印件" ? `${item.id}.` : `${item.id}.`} {item.name}
             </span>
 
             {item.requirement !== "原件" && (
@@ -92,7 +118,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
           </div>
 
           {item.notes && !isCompleted && (
-            <p className="text-[13px] text-[#86868b] mt-0.5">{item.notes}</p>
+            <p className="text-[13px] text-[#86868b] mt-0.5">{renderTextWithLinks(item.notes)}</p>
           )}
 
           {/* 详情展开按钮 */}
@@ -135,7 +161,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
                     className="text-[13px] text-[#86868b] flex items-start gap-2"
                   >
                     <span className="text-[#34c759] mt-0.5 shrink-0">•</span>
-                    <span>{detail}</span>
+                    <span>{renderTextWithLinks(detail)}</span>
                   </li>
                 ))}
               </ul>
