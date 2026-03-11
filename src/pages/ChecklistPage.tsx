@@ -58,6 +58,16 @@ export function ChecklistPage() {
   const pending = total - completed;
   const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
+  // 进度颜色：使用 easeInOutQuad 缓动函数从红色过渡到绿色
+  const getProgressColor = (pct: number): string => {
+    const t = pct / 100;
+    const eased = t < 0.5
+      ? 2 * t * t
+      : 1 - Math.pow(-2 * t + 2, 2) / 2;
+    const hue = Math.round(eased * 120);
+    return `hsl(${hue}, 85%, 50%)`;
+  };
+
   const handleBack = () => {
     setCurrentPage("role-select");
     setSelectedRole(null);
@@ -75,12 +85,12 @@ export function ChecklistPage() {
 
   return (
     <div className="min-h-[100dvh] bg-[#f5f5f7] flex flex-col">
-      {/* 顶部导航 */}
+      {/* 顶部导航 - 带渐变进度底边 */}
       <motion.header
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="bg-white/80 backdrop-blur-xl shrink-0 sticky top-0 z-10 border-b border-[#e8e8ed]/50"
+        className="bg-white/80 backdrop-blur-xl shrink-0 sticky top-0 z-10 relative"
       >
         <div className="max-w-[560px] mx-auto px-6 py-4">
           <div className="flex items-center gap-4">
@@ -102,13 +112,33 @@ export function ChecklistPage() {
 
             {/* 进度数字 */}
             <div className="shrink-0 text-right">
-              <div className="text-[24px] font-semibold tracking-tight text-[#34c759] leading-none">
+              <div
+                className="text-[24px] font-semibold tracking-tight leading-none"
+                style={{ color: getProgressColor(percentage) }}
+              >
                 {percentage}%
               </div>
               <div className="text-[11px] text-[#86868b] mt-0.5">{completed}/{total}</div>
             </div>
           </div>
         </div>
+
+        {/* 渐变进度底边 */}
+        <motion.div
+          className="absolute bottom-0 left-0 h-[2px]"
+          style={{ width: `${percentage}%` }}
+          initial={{ width: 0 }}
+          animate={{ width: `${percentage}%` }}
+          transition={{ type: "spring", stiffness: 100, damping: 20 }}
+        >
+          <div
+            className="h-full w-full"
+            style={{ background: getProgressColor(percentage) }}
+          />
+        </motion.div>
+
+        {/* 底部剩余部分淡色线 */}
+        <div className="absolute bottom-0 right-0 h-[2px] bg-[#e8e8ed]" style={{ left: `${percentage}%` }} />
       </motion.header>
 
       {/* 主内容 */}
@@ -149,18 +179,6 @@ export function ChecklistPage() {
                 <span className={filter === f.key ? "text-white/70" : "text-[#86868b]/60"}> {f.count}</span>
               </button>
             ))}
-          </div>
-        </div>
-
-        {/* 进度条 */}
-        <div className="bg-white rounded-2xl p-4">
-          <div className="h-2 bg-[#e8e8ed] rounded-full overflow-hidden">
-            <motion.div
-              initial={{ width: 0 }}
-              animate={{ width: `${percentage}%` }}
-              transition={{ type: "spring", stiffness: 100, damping: 20 }}
-              className="h-full bg-[#34c759] rounded-full"
-            />
           </div>
         </div>
 
