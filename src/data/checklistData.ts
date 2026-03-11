@@ -70,10 +70,12 @@ const originalItems: InternalChecklistItem[] = [
     "直接保存文件按原始尺寸打印，建议多打印几份",
   ]),
   createItem(4, "原件", "德国高校录取通知书或大学预备语言班报名证明", "原件", true, "", [
-    "情况一：高校录取通知书",
+    "情况一：高校录取通知书 - 需写明注册报到时间",
     "情况二：语言班报名证明+学费收据+大学联系信或者大学申请证明",
+    "若入学时间紧张，需跟德国高校联系最晚何时可以注册，出具证明文件或往来邮件放在录取通知书复印件后面",
+    "若已成功注册，请提供注册证明/在读证明",
   ]),
-  createItem(5, "原件", "经济来源证明", "原件", true),
+  createItem(5, "原件", "经济来源证明", "原件", true, "若需缴纳签证费请带上有银联标志的银行卡"),
   createItem(6, "原件", "高中毕业证书", "原件", true, "适用于高考程序", undefined, []), // 高考程序专用，当前角色列表中不包含
   createItem(7, "原件", "中国高校在读证明/休学证明/退学证明", "原件", true, "适用于中国高校在读生", undefined, ["bachelor_in_progress", "master_in_progress"]),
   createItem(8, "原件", "本科毕业证书和学士学位证书", "原件", true, "适用于本科毕业生、硕士生在读生以及硕士毕业生", undefined, ["bachelor_graduated", "master_in_progress", "master_graduated"]),
@@ -87,13 +89,18 @@ const originalItems: InternalChecklistItem[] = [
 const copyItems: InternalChecklistItem[] = [
   createItem(1, "复印件", "签证申请表原件", "复印件", false, "首页贴照片，末页申请人亲笔签名（中文加拼音）", [
     "首页粘贴护照照片",
-    "末页申请人亲笔签名（中文加拼音）",
+    "末页申请人亲笔签名（中文加拼音），字迹跟护照页上的中文签名一致",
+    "第12项拟在德国居留时间：居留开始时间应与VIDEX二维码文件中填写的入境日期一致",
+    "居留结束时间为预计完成德国学业的时间",
   ]),
   createItem(2, "复印件", "《居留法》条款告知书", "复印件", false, "申请人亲笔签名（中文加拼音）", [
-    "下载: china.diplo.de/pdf-belehrung-zum-visumantrag",
+    "下载: china.diplo.de/blob/2561254/5e9cccec777a2ca0b7aaa019dcd6f670/pdf-belehrung-zum-visumantrag-data.pdf",
+    "打印签字后放在签证申请表后",
   ]),
   createItem(3, "复印件", "护照照片页复印件", "复印件", false),
-  createItem(4, "复印件", "德国高校录取通知书复印件或大学预备语言班报名证明复印件", "复印件", false),
+  createItem(4, "复印件", "德国高校录取通知书复印件或大学预备语言班报名证明复印件", "复印件", false, "", [
+    "若入学时间紧张，相关证明文件或往来邮件放在此复印件后面",
+  ]),
   createItem(5, "复印件", "大学授课语言和要求达到的语言级别的说明", "复印件", false),
   createItem(6, "复印件", "经济来源证明复印件", "复印件", false),
   createItem(7, "复印件", "语言水平证明复印件", "复印件", false, "若是中文证明须附德文或英文翻译"),
