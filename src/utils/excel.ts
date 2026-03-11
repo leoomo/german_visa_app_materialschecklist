@@ -37,7 +37,7 @@ export async function exportToExcel(): Promise<boolean> {
     // 设置列宽
     worksheet["!cols"] = [
       { wch: 10 }, // 类别
-      { wch: 40 }, // 清单名称
+      { wch: 50 }, // 清单名称
       { wch: 50 }, // 详情
     ];
 
