@@ -14,10 +14,10 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.003 }}
+      whileHover={{ scale: 1.005 }}
       whileTap={{ scale: 0.995 }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="rounded-2xl overflow-hidden transition-all duration-200 bg-white"
+      className="rounded-2xl overflow-hidden transition-all duration-200 bg-white shadow-sm hover:shadow-md"
     >
       <div className="flex items-stretch">
         {/* 复选框 */}
@@ -58,13 +58,13 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
         `} />
 
         {/* 内容 */}
-        <div className="flex-1 min-w-0 px-4 py-3.5">
+        <div className="flex-1 min-w-0 px-4 py-3">
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
               {/* 标题 */}
-              <div className="flex items-center gap-2 flex-wrap mb-1">
+              <div className="flex items-center gap-2 flex-wrap mb-0.5">
                 <span className={`
-                  font-medium text-[15px] transition-colors duration-200
+                  font-medium text-[15px] tracking-tight transition-colors duration-200
                   ${isCompleted ? "text-[#34c759]" : "text-[#1d1d1f]"}
                 `}>
                   {item.id}. {item.name}
@@ -81,7 +81,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
                     {item.requirement}
                   </span>
                   {item.notes && (
-                    <span className={isCompleted ? "text-[#a5d6a7]" : "text-[#86868b]"}>
+                    <span className={isCompleted ? "text-[#81c784]" : "text-[#86868b]"}>
                       {item.notes}
                     </span>
                   )}
@@ -90,7 +90,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
 
               {/* 原件 + 重要标签 */}
               {(item.requirement.includes("原件") || item.isKey) && (
-                <div className="flex items-center gap-2 mt-1.5">
+                <div className="flex items-center gap-2 mt-1">
                   {item.requirement.includes("原件") && (
                     <span className={`
                       inline-flex items-center px-2 py-0.5 rounded-md text-[12px] font-medium
