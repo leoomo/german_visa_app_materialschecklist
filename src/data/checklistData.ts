@@ -75,7 +75,11 @@ const originalItems: InternalChecklistItem[] = [
     "若入学时间紧张，需跟德国高校联系最晚何时可以注册，出具证明文件或往来邮件放在录取通知书复印件后面",
     "若已成功注册，请提供注册证明/在读证明",
   ]),
-  createItem(5, "原件", "经济来源证明", "原件", true, "若需缴纳签证费请带上有银联标志的银行卡"),
+  createItem(5, "原件", "经济来源证明", "原件", true, "每月至少 992 欧元（留学申请人每月至少 1091 欧元）", [
+    "总额至少 11904 欧元/年（留学申请人 13092 欧元/年）",
+    "可选择：奖学金、限制提款账户(Sperrkonto)、正式经济担保函",
+    "若需缴纳签证费请带上有银联标志的银行卡",
+  ]),
   createItem(6, "原件", "高中毕业证书", "原件", true, "适用于高考程序", undefined, []), // 高考程序专用，当前角色列表中不包含
   createItem(7, "原件", "中国高校在读证明/休学证明/退学证明", "原件", true, "适用于中国高校在读生", undefined, ["bachelor_in_progress", "master_in_progress"]),
   createItem(8, "原件", "本科毕业证书和学士学位证书", "原件", true, "适用于本科毕业生、硕士生在读生以及硕士毕业生", undefined, ["bachelor_graduated", "master_in_progress", "master_graduated"]),
