@@ -4,8 +4,7 @@ import { ArrowLeft, MagnifyingGlass, FolderOpen } from "@phosphor-icons/react";
 import { useAppStore } from "../stores/useAppStore";
 import { roles, getChecklistForRole } from "../data/checklistData";
 import { ChecklistItemCard } from "../components/ChecklistItem";
-
-type FilterType = "all" | "pending" | "completed";
+import { FilterType } from "../types";
 
 export function ChecklistPage() {
   const {
@@ -13,7 +12,6 @@ export function ChecklistPage() {
     setCurrentPage,
     setSelectedRole,
     toggleItem,
-    isItemCompleted,
     completedItems
   } = useAppStore();
 
@@ -26,14 +24,20 @@ export function ChecklistPage() {
     return getChecklistForRole(selectedRole);
   }, [selectedRole]);
 
+  // Use Set for O(1) lookup instead of repeated Array.includes()
+  const completedSet = useMemo(
+    () => new Set(selectedRole ? (completedItems[selectedRole] || []) : []),
+    [completedItems, selectedRole]
+  );
+
   const filteredItems = useMemo(() => {
     let items = allItems;
 
     // 先按状态筛选
     if (filter === "pending") {
-      items = items.filter(item => !isItemCompleted(item.id));
+      items = items.filter(item => !completedSet.has(item.id));
     } else if (filter === "completed") {
-      items = items.filter(item => isItemCompleted(item.id));
+      items = items.filter(item => completedSet.has(item.id));
     }
 
     // 再按搜索词筛选
@@ -47,9 +51,9 @@ export function ChecklistPage() {
     }
 
     return items;
-  }, [allItems, searchQuery, filter, isItemCompleted]);
+  }, [allItems, searchQuery, filter, completedSet]);
 
-  const completed = selectedRole ? completedItems[selectedRole]?.length || 0 : 0;
+  const completed = completedSet.size;
   const total = allItems.length;
   const pending = total - completed;
   const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
@@ -175,7 +179,7 @@ export function ChecklistPage() {
               <ChecklistItemCard
                 key={item.id}
                 item={item}
-                isCompleted={isItemCompleted(item.id)}
+                isCompleted={completedSet.has(item.id)}
                 onToggle={() => toggleItem(item.id)}
                 index={index}
               />
