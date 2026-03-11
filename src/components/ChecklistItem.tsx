@@ -16,7 +16,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        delay: index * 0.02,
+        delay: Math.min(index * 0.02, 0.4),
         type: "spring",
         stiffness: 400,
         damping: 30

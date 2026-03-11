@@ -28,3 +28,5 @@ export interface UserProgress {
   completedItems: number[];
   lastUpdated: string;
 }
+
+export type FilterType = "all" | "pending" | "completed";
