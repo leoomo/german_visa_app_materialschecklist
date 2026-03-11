@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { roles } from "../data/checklistData";
 import { useAppStore } from "../stores/useAppStore";
-import { GraduationCap, CaretRight, DownloadSimple } from "@phosphor-icons/react";
+import { GraduationCap, CaretRight, DownloadSimple, ClipboardText } from "@phosphor-icons/react";
 import { RoleType } from "../types";
 
 export function RoleSelectPage() {
@@ -26,17 +26,23 @@ export function RoleSelectPage() {
           transition={{ delay: 0.1, type: "spring", stiffness: 200, damping: 20 }}
           className="mb-10"
         >
-          <div className="flex items-center gap-4">
-            <div className="flex items-center justify-center w-12 h-12 bg-[#0071e3] rounded-2xl shrink-0 shadow-lg shadow-[#0071e3]/20">
-              <GraduationCap size={24} weight="duotone" className="text-white" />
+          <div className="flex items-start gap-4">
+            <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-[#0071e3] to-[#5856d6] rounded-2xl shrink-0 shadow-lg shadow-[#0071e3]/20">
+              <ClipboardText size={24} weight="duotone" className="text-white" />
             </div>
-            <div>
-              <h1 className="text-[22px] font-semibold tracking-tight text-[#1d1d1f]">
-                德国留学签证准备材料清单
-              </h1>
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-[#ff9500] to-[#ffb340] text-white font-semibold text-[12px] shadow-sm shadow-[#ff9500]/30">
-                2025-10版
-              </span>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2">
+                <h1 className="text-[22px] font-semibold tracking-tight text-[#1d1d1f]">
+                  德国留学签证
+                </h1>
+                <GraduationCap size={18} weight="fill" className="text-[#ff9500] shrink-0" />
+              </div>
+              <p className="text-[17px] font-medium text-[#1d1d1f] -mt-0.5">准备材料清单</p>
+              <div className="mt-2.5">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#ff9500] to-[#ffb340] text-white font-semibold text-[11px] shadow-sm shadow-[#ff9500]/30">
+                  2025-10版
+                </span>
+              </div>
             </div>
           </div>
         </motion.header>
