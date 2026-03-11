@@ -14,19 +14,10 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.005 }}
+      whileHover={{ scale: 1.003 }}
       whileTap={{ scale: 0.995 }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className={`
-        group relative rounded-2xl overflow-hidden transition-all duration-200
-        ${isCompleted
-          ? "bg-emerald-50/60"
-          : "bg-white"
-        }
-        shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)]
-        hover:shadow-[0_8px_30px_-8px_rgba(0,0,0,0.12)]
-        border border-slate-100
-      `}
+      className="rounded-2xl overflow-hidden transition-all duration-200 bg-white"
     >
       <div className="flex items-stretch">
         {/* 复选框 */}
@@ -38,8 +29,8 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
               w-7 h-7 rounded-full flex items-center justify-center
               transition-all duration-200
               ${isCompleted
-                ? "bg-emerald-500 text-white shadow-[0_2px_8px_-2px_rgba(16,185,129,0.4)]"
-                : "bg-slate-100 hover:bg-slate-200 border-2 border-slate-300 group-hover:border-slate-400"
+                ? "bg-[#34c759] text-white shadow-[0_2px_8px_rgba(52,199,89,0.3)]"
+                : "bg-[#e8e8ed] hover:bg-[#d1d1d6]"
               }
             `}
           >
@@ -49,7 +40,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: "spring", stiffness: 500, damping: 25 }}
               >
-                <Check size={16} weight="bold" />
+                <Check size={14} weight="bold" />
               </motion.div>
             )}
           </motion.button>
@@ -59,10 +50,10 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
         <div className={`
           w-[3px] self-stretch transition-colors duration-300
           ${isCompleted
-            ? "bg-emerald-400"
+            ? "bg-[#34c759]"
             : item.isKey
-              ? "bg-amber-400"
-              : "bg-slate-200 group-hover:bg-slate-300"
+              ? "bg-[#ff9500]"
+              : "bg-transparent"
           }
         `} />
 
@@ -71,10 +62,10 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
           <div className="flex items-start justify-between gap-3">
             <div className="flex-1 min-w-0">
               {/* 标题 */}
-              <div className="flex items-center gap-2 flex-wrap mb-1.5">
+              <div className="flex items-center gap-2 flex-wrap mb-1">
                 <span className={`
-                  font-medium text-[15px] text-slate-800
-                  ${isCompleted ? "line-through text-slate-400" : ""}
+                  font-medium text-[15px] transition-colors duration-200
+                  ${isCompleted ? "text-[#34c759]" : "text-[#1d1d1f]"}
                 `}>
                   {item.id}. {item.name}
                 </span>
@@ -85,12 +76,12 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
                 <div className="flex items-center gap-2 flex-wrap text-[13px]">
                   <span className={`
                     inline-flex items-center px-2 py-0.5 rounded-md
-                    ${isCompleted ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-600"}
+                    ${isCompleted ? "bg-[#e8f5e9] text-[#34c759]" : "bg-[#f5f5f7] text-[#86868b]"}
                   `}>
                     {item.requirement}
                   </span>
                   {item.notes && (
-                    <span className="text-slate-500">
+                    <span className={isCompleted ? "text-[#a5d6a7]" : "text-[#86868b]"}>
                       {item.notes}
                     </span>
                   )}
@@ -104,15 +95,15 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
                     <span className={`
                       inline-flex items-center px-2 py-0.5 rounded-md text-[12px] font-medium
                       ${isCompleted
-                        ? "bg-emerald-100 text-emerald-700"
-                        : "bg-amber-100 text-amber-700"
+                        ? "bg-[#e8f5e9] text-[#34c759]"
+                        : "bg-[#fff7e6] text-[#ff9500]"
                       }
                     `}>
                       原件
                     </span>
                   )}
                   {item.isKey && !isCompleted && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[12px] font-medium bg-amber-100 text-amber-700">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[12px] font-medium bg-[#fff7e6] text-[#ff9500]">
                       重要
                     </span>
                   )}
