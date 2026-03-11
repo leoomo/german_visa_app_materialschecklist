@@ -10,23 +10,22 @@ export interface Role {
   description: string;
 }
 
+export type ItemSection = "原件" | "复印件";
+
 export interface ChecklistItem {
-  id: number;
+  id: number;  // 显示编号（在section内）
+  section: ItemSection;  // 所属部分
+  itemId: string;  // 唯一标识符（用于追踪完成状态）
   name: string;
   requirement: "原件" | "复印件" | "原件+复印件";
   isKey: boolean;
   notes: string;
-  details?: string[];  // 完整详情列表（悬浮显示）
-}
-
-export interface ChecklistData {
-  common: ChecklistItem[];
-  roleSpecific: Record<string, ChecklistItem[]>;
+  details?: string[];
 }
 
 export interface UserProgress {
   roleId: RoleType;
-  completedItems: number[];
+  completedItems: string[];  // 使用 itemId 字符串
   lastUpdated: string;
 }
 

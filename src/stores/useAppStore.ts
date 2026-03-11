@@ -1,17 +1,18 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { RoleType } from "../types";
+import { getTotalItemsForRole } from "../data/checklistData";
 
 interface AppState {
   currentPage: "role-select" | "checklist";
   selectedRole: RoleType | null;
-  completedItems: Record<RoleType, number[]>;
+  completedItems: Record<RoleType, string[]>;
 
   // Actions
   setCurrentPage: (page: "role-select" | "checklist") => void;
   setSelectedRole: (role: RoleType | null) => void;
-  toggleItem: (itemId: number) => void;
-  isItemCompleted: (itemId: number) => boolean;
+  toggleItem: (itemId: string) => void;
+  isItemCompleted: (itemId: string) => boolean;
   getProgress: () => { completed: number; total: number; percentage: number };
   resetProgress: () => void;
 }
@@ -59,15 +60,7 @@ export const useAppStore = create<AppState>()(
         const { selectedRole, completedItems } = get();
         if (!selectedRole) return { completed: 0, total: 0, percentage: 0 };
 
-        // 根据角色计算总数
-        const totals: Record<RoleType, number> = {
-          bachelor_in_progress: 21,
-          bachelor_graduated: 21,
-          master_in_progress: 21,
-          master_graduated: 23,
-        };
-
-        const total = totals[selectedRole] || 21;
+        const total = getTotalItemsForRole(selectedRole);
         const completed = completedItems[selectedRole]?.length || 0;
         const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
