@@ -1,4 +1,7 @@
-import { Role, ChecklistItem, ItemSection } from "../types";
+import { Role, ChecklistItem, ItemSection, RoleType } from "../types";
+
+// 内部类型：带角色过滤的清单项
+type InternalChecklistItem = ChecklistItem & { applicableRoles?: RoleType[] };
 
 export const roles: Role[] = [
   {
@@ -32,8 +35,8 @@ function createItem(
   isKey: boolean,
   notes: string = "",
   details?: string[],
-  applicableRoles?: string[] // 为空表示所有角色都适用
-): ChecklistItem & { applicableRoles?: string[] } {
+  applicableRoles?: RoleType[]
+): InternalChecklistItem {
   return {
     id,
     section,
@@ -48,12 +51,14 @@ function createItem(
 }
 
 // 原件部分 (1-12) - 与PDF编号一致
-const originalItems: (ChecklistItem & { applicableRoles?: string[] })[] = [
+const originalItems: InternalChecklistItem[] = [
   createItem(1, "原件", "护照", "原件", false),
-  createItem(2, "原件", "照片", "原件", false, "一张，用曲别针夹在护照首页", [
+  createItem(2, "原件", "照片", "原件", false, "2张白底近照", [
+    "1张夹在护照首页",
+    "1张贴在签证申请表",
     "35x45mm白底",
     "6个月内近照",
-    "不可使用任何照片软件进行修饰",
+    "不可精修",
   ]),
   createItem(3, "原件", "VIDEX二维码打印件", "原件", false, "第七页", [
     "填写网址: videx.diplo.de",
@@ -74,7 +79,7 @@ const originalItems: (ChecklistItem & { applicableRoles?: string[] })[] = [
 ];
 
 // 复印件部分 (1-15) - 与PDF编号一致
-const copyItems: (ChecklistItem & { applicableRoles?: string[] })[] = [
+const copyItems: InternalChecklistItem[] = [
   createItem(1, "复印件", "签证申请表原件", "复印件", false, "首页贴照片，末页申请人亲笔签名（中文加拼音）", [
     "首页粘贴护照照片",
     "末页申请人亲笔签名（中文加拼音）",
@@ -95,20 +100,27 @@ const copyItems: (ChecklistItem & { applicableRoles?: string[] })[] = [
   createItem(15, "复印件", "入境后医疗保险证明复印件", "复印件", false),
 ];
 
+// 按角色过滤清单项
+function filterItemsByRole(items: InternalChecklistItem[], roleId: RoleType): ChecklistItem[] {
+  return items
+    .filter(item => !item.applicableRoles || item.applicableRoles.includes(roleId))
+    .map(({ applicableRoles: _, ...rest }) => rest);
+}
+
+// 角色清单缓存
+const roleCache = new Map<RoleType, ChecklistItem[]>();
+
 // 获取适用于指定角色的清单
-export function getChecklistForRole(roleId: string): ChecklistItem[] {
-  const filteredOriginals = originalItems
-    .filter(item => !item.applicableRoles || item.applicableRoles.length === 0 || item.applicableRoles.includes(roleId))
-    .map(({ applicableRoles, ...rest }) => rest);
-
-  const filteredCopies = copyItems
-    .filter(item => !item.applicableRoles || item.applicableRoles.length === 0 || item.applicableRoles.includes(roleId))
-    .map(({ applicableRoles, ...rest }) => rest);
-
-  return [...filteredOriginals, ...filteredCopies];
+export function getChecklistForRole(roleId: RoleType): ChecklistItem[] {
+  if (roleCache.has(roleId)) {
+    return roleCache.get(roleId)!;
+  }
+  const result = [...filterItemsByRole(originalItems, roleId), ...filterItemsByRole(copyItems, roleId)];
+  roleCache.set(roleId, result);
+  return result;
 }
 
 // 获取每个角色的总项目数
-export function getTotalItemsForRole(roleId: string): number {
+export function getTotalItemsForRole(roleId: RoleType): number {
   return getChecklistForRole(roleId).length;
 }
