@@ -11,25 +11,33 @@ export default {
         display: ['Cabinet Grotesk', 'sans-serif'],
       },
       colors: {
+        // 主色调
+        primary: {
+          DEFAULT: '#1d1d1f',
+          light: '#3d3d3f',
+        },
+        secondary: {
+          DEFAULT: '#86868b',
+          light: '#a1a1a6',
+        },
         accent: {
-          orange: '#F97316',
-          sky: '#0EA5E9',
-          teal: '#14B8A6',
-          green: '#22C55E',
-          yellow: '#EAB308',
-          rose: '#F43F5E',
-        }
+          DEFAULT: '#0071e3',
+          hover: '#0077ed',
+          light: '#f0f7ff',
+        },
+        // 语义色
+        success: '#34c759',
+        successLight: '#e8f5e9',
+        warning: '#ff9500',
+        warningLight: '#fff7e6',
+        // 背景色
+        page: '#f5f5f7',
+        card: '#ffffff',
+        border: '#e8e8ed',
+        borderLight: '#d1d1d6',
+        // 链接色
+        link: '#007aff',
       },
-      animation: {
-        'float': 'float 6s ease-in-out infinite',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        }
-      }
     },
   },
   plugins: [],

@@ -13,7 +13,7 @@ export function RoleSelectPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-[#f5f5f7] flex items-center">
+    <div className="min-h-[100dvh] bg-page flex items-center">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -27,19 +27,19 @@ export function RoleSelectPage() {
           className="mb-10"
         >
           <div className="flex items-start gap-4">
-            <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-[#0071e3] to-[#5856d6] rounded-2xl shrink-0 shadow-lg shadow-[#0071e3]/20">
+            <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-accent to-[#5856d6] rounded-2xl shrink-0 shadow-lg shadow-accent/20">
               <ClipboardText size={24} weight="duotone" className="text-white" />
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <h1 className="text-[22px] font-semibold tracking-tight text-[#1d1d1f]">
+                <h1 className="text-[22px] font-semibold tracking-tight text-primary">
                   上海地区 德国留学签证
                 </h1>
-                <GraduationCap size={18} weight="fill" className="text-[#ff9500] shrink-0" />
+                <GraduationCap size={18} weight="fill" className="text-warning shrink-0" />
               </div>
-              <p className="text-[17px] font-medium text-[#1d1d1f] -mt-0.5">准备材料清单</p>
+              <p className="text-[17px] font-medium text-primary -mt-0.5">准备材料清单</p>
               <div className="mt-2.5">
-                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-gradient-to-r from-[#ff9500] to-[#ffb340] text-white font-semibold text-[11px] shadow-sm shadow-[#ff9500]/30">
+                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-gradient-to-r from-warning to-[#ffb340] text-white font-semibold text-[11px] shadow-sm shadow-warning/30">
                   2025-10版
                 </span>
               </div>
@@ -52,7 +52,7 @@ export function RoleSelectPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="mb-6 p-3 bg-[#fff9e6] rounded-xl border border-[#ff9500]/20"
+          className="mb-6 p-3 bg-warningLight rounded-xl border border-warning/20"
         >
           {/* 免责申明 */}
           <p className="text-[11px] text-[#8c7000] leading-relaxed">
@@ -64,7 +64,7 @@ export function RoleSelectPage() {
             <a
               href="/上海留学签证特别提示2025-10版.pdf"
               download
-              className="inline-flex items-center gap-1.5 text-[12px] text-[#0071e3] hover:text-[#0077ed] font-medium transition-colors"
+              className="inline-flex items-center gap-1.5 text-[12px] text-accent hover:text-accent-hover font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded"
             >
               <DownloadSimple size={14} weight="bold" />
               <span>特别提示2025-10版</span>
@@ -73,7 +73,8 @@ export function RoleSelectPage() {
               href="https://china.diplo.de/resource/blob/1341652/8530b9e1b8358030d76875b658bcc09c/pdf-merkblatt-natvisum-studium-data.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-[12px] text-[#0071e3] hover:text-[#0077ed] font-medium transition-colors"
+              aria-label="申请须知2025-01（在新标签页打开）"
+              className="inline-flex items-center gap-1 text-[12px] text-accent hover:text-accent-hover font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded"
             >
               <ArrowSquareOut size={12} weight="bold" />
               <span>申请须知2025-01</span>
@@ -81,7 +82,7 @@ export function RoleSelectPage() {
           </div>
         </motion.div>
 
-        <p className="text-[13px] text-[#86868b] mb-3">选择您的学历背景</p>
+        <p className="text-[13px] text-secondary mb-3">选择您的学历背景</p>
 
         <div className="space-y-2.5">
           {roles.map((role, index) => (
@@ -98,20 +99,21 @@ export function RoleSelectPage() {
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
               onClick={() => handleSelectRole(role.id)}
-              className="group w-full p-4 bg-white rounded-2xl text-left flex items-center justify-between border border-transparent hover:border-[#0071e3]/30 hover:bg-[#f0f7ff] transition-colors duration-150"
+              aria-label={`选择${role.name}，${role.description}`}
+              className="group w-full p-4 bg-card rounded-2xl text-left flex items-center justify-between border border-transparent hover:border-accent/30 hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors duration-150"
             >
               <div>
-                <h3 className="text-[15px] font-medium text-[#1d1d1f] group-hover:text-[#0071e3] transition-colors">
+                <h3 className="text-[15px] font-medium text-primary group-hover:text-accent transition-colors">
                   {role.name}
                 </h3>
-                <p className="text-[13px] text-[#86868b] mt-0.5 group-hover:text-[#6e6e73] transition-colors">
+                <p className="text-[13px] text-secondary mt-0.5 group-hover:text-primary-light transition-colors">
                   {role.description}
                 </p>
               </div>
               <CaretRight
                 size={18}
                 weight="bold"
-                className="text-[#d1d1d6] group-hover:text-[#0071e3] group-hover:translate-x-0.5 transition-all duration-150"
+                className="text-borderLight group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-150"
               />
             </motion.button>
           ))}
