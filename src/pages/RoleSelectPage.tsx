@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 import { roles } from "../data/checklistData";
 import { useAppStore } from "../stores/useAppStore";
 import { GraduationCap, CaretRight } from "@phosphor-icons/react";
+import { RoleType } from "../types";
 
 export function RoleSelectPage() {
   const { setCurrentPage, setSelectedRole } = useAppStore();
 
   const handleSelectRole = (roleId: string) => {
-    setSelectedRole(roleId as any);
+    setSelectedRole(roleId as RoleType);
     setCurrentPage("checklist");
   };
 

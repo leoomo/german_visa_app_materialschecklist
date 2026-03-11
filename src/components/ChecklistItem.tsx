@@ -64,8 +64,8 @@ export function ChecklistItemCard({ item, isCompleted, onToggle }: ChecklistItem
               {/* 标题 */}
               <div className="flex items-center gap-2 flex-wrap mb-0.5">
                 <span className={`
-                  font-medium text-[15px] tracking-tight transition-colors duration-200
-                  ${isCompleted ? "text-[#34c759]" : "text-[#1d1d1f]"}
+                  font-medium text-[15px] tracking-tight transition-all duration-200
+                  ${isCompleted ? "text-[#86868b] line-through" : "text-[#1d1d1f]"}
                 `}>
                   {item.id}. {item.name}
                 </span>

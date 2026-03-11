@@ -22,7 +22,6 @@ export const useAppStore = create<AppState>()(
       currentPage: "role-select",
       selectedRole: null,
       completedItems: {
-        high_school: [],
         bachelor_in_progress: [],
         bachelor_graduated: [],
         master_in_progress: [],
@@ -62,7 +61,6 @@ export const useAppStore = create<AppState>()(
 
         // 根据角色计算总数
         const totals: Record<RoleType, number> = {
-          high_school: 21,
           bachelor_in_progress: 21,
           bachelor_graduated: 21,
           master_in_progress: 21,
@@ -78,7 +76,6 @@ export const useAppStore = create<AppState>()(
 
       resetProgress: () => set({
         completedItems: {
-          high_school: [],
           bachelor_in_progress: [],
           bachelor_graduated: [],
           master_in_progress: [],
