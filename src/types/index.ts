@@ -1,5 +1,4 @@
 export type RoleType =
-  | "high_school"
   | "bachelor_in_progress"
   | "bachelor_graduated"
   | "master_in_progress"
@@ -9,7 +8,6 @@ export interface Role {
   id: RoleType;
   name: string;
   description: string;
-  gradient: string;
 }
 
 export interface ChecklistItem {

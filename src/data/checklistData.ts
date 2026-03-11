@@ -2,34 +2,24 @@ import { Role, ChecklistItem, ChecklistData } from "../types";
 
 export const roles: Role[] = [
   {
-    id: "high_school",
-    name: "高中毕业",
-    description: "高中毕业，去德国读本科",
-    gradient: "from-amber-400 to-orange-500",
-  },
-  {
     id: "bachelor_in_progress",
     name: "大学在读",
     description: "本科在读，申请德国硕士",
-    gradient: "from-teal-400 to-cyan-500",
   },
   {
     id: "bachelor_graduated",
     name: "大学毕业",
     description: "本科毕业，申请德国硕士",
-    gradient: "from-violet-400 to-purple-500",
   },
   {
     id: "master_in_progress",
     name: "硕士在读",
     description: "硕士在读，申请德国博士或二硕",
-    gradient: "from-indigo-400 to-blue-500",
   },
   {
     id: "master_graduated",
     name: "硕士毕业",
     description: "硕士毕业，申请德国博士或二硕",
-    gradient: "from-rose-400 to-pink-500",
   },
 ];
 
@@ -70,10 +60,6 @@ export const commonItems: ChecklistItem[] = [
 
 // 角色特定材料
 export const roleSpecificItems = {
-  high_school: [
-    { id: 20, name: "高中毕业证书", requirement: "原件+复印件", isKey: true, notes: "需附德文或英文翻译" },
-    { id: 21, name: "高中毕业证书复印件，并附德文或英文翻译", requirement: "复印件", isKey: false, notes: "" },
-  ],
   bachelor_in_progress: [
     { id: 20, name: "中国高校在读证明/休学证明/退学证明", requirement: "原件", isKey: true, notes: "适用于中国高校在读生，需翻译" },
     { id: 21, name: "中国高校在读证明/休学证明/退学证明的复印件，并附德文或英文翻译", requirement: "复印件", isKey: false, notes: "" },
