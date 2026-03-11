@@ -1,0 +1,26 @@
+{
+  "identifier": "main-capability",
+  "description": "Main capability for the visa checklist app",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "dialog:default",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "dialog:allow-message",
+    "dialog:allow-ask",
+    "dialog:allow-confirm",
+    "fs:default",
+    "fs:allow-read-text-file",
+    "fs:allow-write-text-file",
+    "fs:allow-read-file",
+    "fs:allow-write-file",
+    "fs:allow-exists",
+    {
+      "identifier": "fs:scope",
+      "allow": [
+        { "path": "**" }
+      ]
+    }
+  ]
+}

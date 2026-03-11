@@ -4,6 +4,7 @@ import { ArrowLeft, MagnifyingGlass, FolderOpen } from "@phosphor-icons/react";
 import { useAppStore } from "../stores/useAppStore";
 import { roles, getChecklistForRole } from "../data/checklistData";
 import { ChecklistItemCard } from "../components/ChecklistItem";
+import { ImportExportMenu } from "../components/ImportExportMenu";
 import { FilterType, ChecklistItem } from "../types";
 
 // 区块标题组件
@@ -170,6 +171,8 @@ export function ChecklistPage() {
               </div>
               <div className="text-[11px] text-secondary mt-0.5">{completed}/{total}</div>
             </div>
+
+            <ImportExportMenu />
           </div>
         </div>
 
