@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { roles } from "../data/checklistData";
 import { useAppStore } from "../stores/useAppStore";
-import { GraduationCap, CaretRight } from "@phosphor-icons/react";
+import { GraduationCap, CaretRight, DownloadSimple } from "@phosphor-icons/react";
 import { RoleType } from "../types";
 
 export function RoleSelectPage() {
@@ -34,15 +34,37 @@ export function RoleSelectPage() {
               <h1 className="text-[22px] font-semibold tracking-tight text-[#1d1d1f]">
                 德国留学签证准备材料清单
               </h1>
-              <p className="text-[13px] text-[#86868b] mt-1.5">
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-[#ff9500] to-[#ffb340] text-white font-semibold text-[12px] shadow-sm shadow-[#ff9500]/30">
-                  2025-10版
-                </span>
-                <span className="ml-2.5">选择您的学历背景</span>
-              </p>
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-gradient-to-r from-[#ff9500] to-[#ffb340] text-white font-semibold text-[12px] shadow-sm shadow-[#ff9500]/30">
+                2025-10版
+              </span>
             </div>
           </div>
         </motion.header>
+
+        {/* 提示区域 */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mb-6 p-3 bg-[#fff9e6] rounded-xl border border-[#ff9500]/20"
+        >
+          {/* 免责申明 */}
+          <p className="text-[11px] text-[#8c7000] leading-relaxed">
+            本清单基于2025年10月版整理，后续可能存在变化，请以德国驻华使领馆官方最新发布为准
+          </p>
+
+          {/* PDF下载链接 */}
+          <a
+            href="/材料清单.pdf"
+            download
+            className="mt-2 inline-flex items-center gap-1.5 text-[12px] text-[#0071e3] hover:text-[#0077ed] font-medium transition-colors"
+          >
+            <DownloadSimple size={14} weight="bold" />
+            <span>下载 2025-10版本官方清单文件</span>
+          </a>
+        </motion.div>
+
+        <p className="text-[13px] text-[#86868b] mb-3">选择您的学历背景</p>
 
         <div className="space-y-2.5">
           {roles.map((role, index) => (
