@@ -2,7 +2,11 @@
 
 帮助在上海办理德国留学签证的学生准备申请材料的桌面应用。
 
-![Screenshot](./ScreenShot_2026-03-11_194349_798.png)
+## 应用截图
+
+| 角色选择页面 | 材料清单页面 |
+|:---:|:---:|
+| ![角色选择](./screenshot-role-select.png) | ![清单页面](./screenshot-checklist-progress.png) |
 
 ## 功能特点
 
