@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  DotsThree,
+  List,
   Export,
   ArrowCounterClockwise,
   DownloadSimple,
@@ -28,7 +28,7 @@ export function ImportExportMenu() {
     setIsOpen(false);
     const success = await exportToExcel();
     if (success) {
-      await message("导出成功！", { title: "提示", kind: "info" });
+      await message("好啦！清单已导出~", { title: "完成", kind: "info" });
     }
   };
 
@@ -36,7 +36,7 @@ export function ImportExportMenu() {
     setIsOpen(false);
     const success = await importFromExcel();
     if (success) {
-      await message("导入成功！", { title: "提示", kind: "info" });
+      await message("收到！清单已导入~", { title: "完成", kind: "info" });
     }
   };
 
@@ -52,7 +52,7 @@ export function ImportExportMenu() {
 
     if (confirmed) {
       resetToDefault();
-      await message("已重置到默认清单。", { title: "提示", kind: "info" });
+      await message("搞定！已重置为默认清单~", { title: "完成", kind: "info" });
     }
   };
 
@@ -86,7 +86,7 @@ export function ImportExportMenu() {
         aria-label="更多操作"
         className="p-2 rounded-lg hover:bg-page focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors"
       >
-        <DotsThree size={24} weight="bold" className="text-primary" />
+        <List size={24} weight="bold" className="text-primary" />
       </motion.button>
 
       <AnimatePresence>
