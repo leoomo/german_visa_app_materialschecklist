@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, CaretRight, CaretDown } from "@phosphor-icons/react";
 import { ChecklistItem as ChecklistItemType } from "../types";
-import { open } from "@tauri-apps/plugin-shell";
 
 // 渲染带可点击链接的文本
 function renderTextWithLinks(text: string) {
@@ -30,26 +29,31 @@ function renderTextWithLinks(text: string) {
   });
 }
 
+import { open } from "@tauri-apps/plugin-shell";
+
 interface ChecklistItemProps {
   item: ChecklistItemType;
   isCompleted: boolean;
   onToggle: () => void;
   index: number;
+  isHovered?: boolean;
+  onHover?: () => void;
+  onLeave?: () => void;
 }
 
-export function ChecklistItemCard({ item, isCompleted, onToggle, index }: ChecklistItemProps) {
+export function ChecklistItemCard({ item, isCompleted, onToggle, index, isHovered, onHover, onLeave }: ChecklistItemProps) {
   const [showDetails, setShowDetails] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const leaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hasDetails = item.details && item.details.length > 0;
 
-  // 处理鼠标悬停展开详情
+  // 处理鼠标悬停展开详情 - 受控模式
   useEffect(() => {
     if (isHovered && hasDetails && !isCompleted) {
-      // 延迟150ms展开，避免快速划过时频繁展开
+      // 延迟50ms展开，避免快速划过时频繁展开
       hoverTimeoutRef.current = setTimeout(() => {
         setShowDetails(true);
-      }, 150);
+      }, 50);
     } else {
       // 离开时立即收起
       if (hoverTimeoutRef.current) {
@@ -63,8 +67,36 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
       }
+      if (leaveTimeoutRef.current) {
+        clearTimeout(leaveTimeoutRef.current);
+      }
     };
   }, [isHovered, hasDetails, isCompleted]);
+
+  // 组件卸载时清理
+  useEffect(() => {
+    return () => {
+      if (leaveTimeoutRef.current) {
+        clearTimeout(leaveTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // 处理鼠标进入 - 取消待处理的收起
+  const handleMouseEnter = () => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = null;
+    }
+    onHover?.();
+  };
+
+  // 处理鼠标离开 - 延迟收起
+  const handleMouseLeave = () => {
+    leaveTimeoutRef.current = setTimeout(() => {
+      onLeave?.();
+    }, 400);
+  };
 
   // 切换详情显示（支持键盘和点击）
   const toggleDetails = (e: React.MouseEvent | React.KeyboardEvent) => {
@@ -83,8 +115,8 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
         damping: 30
       }}
       className="rounded-xl overflow-hidden bg-card shadow-card hover:shadow-cardHover transition-shadow duration-200"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <div className="flex items-stretch group">
         {/* 复选框 - 最小 44x44px 触摸区域 (Apple HIG 标准) */}

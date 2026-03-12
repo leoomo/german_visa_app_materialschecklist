@@ -50,6 +50,17 @@ export function ChecklistPage() {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
+  const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
+
+  // 处理 item 悬停 - 带延迟展开
+  const handleItemHover = (itemId: string) => {
+    setHoveredItemId(itemId);
+  };
+
+  // 处理 item 离开 - 立即关闭
+  const handleItemLeave = () => {
+    setHoveredItemId(null);
+  };
 
   const role = roles.find((r) => r.id === selectedRole);
   const allItems = useMemo(() => {
@@ -324,6 +335,9 @@ export function ChecklistPage() {
                       isCompleted={completedSet.has(item.itemId)}
                       onToggle={() => toggleItem(item.itemId)}
                       index={index}
+                      isHovered={hoveredItemId === item.itemId}
+                      onHover={() => handleItemHover(item.itemId)}
+                      onLeave={handleItemLeave}
                     />
                   ))}
                 </div>
@@ -345,6 +359,9 @@ export function ChecklistPage() {
                       isCompleted={completedSet.has(item.itemId)}
                       onToggle={() => toggleItem(item.itemId)}
                       index={index}
+                      isHovered={hoveredItemId === item.itemId}
+                      onHover={() => handleItemHover(item.itemId)}
+                      onLeave={handleItemLeave}
                     />
                   ))}
                 </div>
@@ -367,6 +384,9 @@ export function ChecklistPage() {
                       isCompleted={completedSet.has(item.itemId)}
                       onToggle={() => toggleItem(item.itemId)}
                       index={index}
+                      isHovered={hoveredItemId === item.itemId}
+                      onHover={() => handleItemHover(item.itemId)}
+                      onLeave={handleItemLeave}
                     />
                   ))}
                 </div>
