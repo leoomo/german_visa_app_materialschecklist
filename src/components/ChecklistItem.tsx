@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, CaretRight, CaretDown } from "@phosphor-icons/react";
 import { ChecklistItem as ChecklistItemType } from "../types";
+import { open } from "@tauri-apps/plugin-shell";
 
 // 渲染带可点击链接的文本
 function renderTextWithLinks(text: string) {
@@ -13,16 +14,16 @@ function renderTextWithLinks(text: string) {
     if (part.match(urlRegex)) {
       const href = part.startsWith('http') ? part : `https://${part}`;
       return (
-        <a
+        <span
           key={i}
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-link hover:underline"
-          onClick={(e) => e.stopPropagation()}
+          className="text-link hover:underline cursor-pointer"
+          onClick={(e) => {
+            e.stopPropagation();
+            open(href).catch(console.error);
+          }}
         >
           {part}
-        </a>
+        </span>
       );
     }
     return part;
