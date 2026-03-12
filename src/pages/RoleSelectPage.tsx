@@ -1,8 +1,25 @@
 import { motion } from "framer-motion";
 import { roles } from "../data/checklistData";
 import { useAppStore } from "../stores/useAppStore";
-import { GraduationCap, CaretRight, DownloadSimple, ClipboardText, ArrowSquareOut } from "@phosphor-icons/react";
-import { RoleType } from "../types";
+import { CaretRight, DownloadSimple, ClipboardText, ArrowSquareOut } from "@phosphor-icons/react";
+import { RoleType, RoleGroup } from "../types";
+
+// 按分组整理角色
+function getGroupedRoles() {
+  const groups: Record<RoleGroup, typeof roles> = {
+    "在读": [],
+    "毕业": [],
+  };
+
+  roles.forEach((role) => {
+    groups[role.group].push(role);
+  });
+
+  return [
+    { name: "毕业" as RoleGroup, roles: groups["毕业"] },
+    { name: "在读" as RoleGroup, roles: groups["在读"] },
+  ];
+}
 
 export function RoleSelectPage() {
   const { setCurrentPage, setSelectedRole } = useAppStore();
@@ -31,18 +48,15 @@ export function RoleSelectPage() {
               <ClipboardText size={24} weight="duotone" className="text-white" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <h1 className="text-[22px] font-semibold tracking-tight text-primary">
-                  上海地区 德国留学签证
+                  上海地区 德国留学签证
                 </h1>
-                <GraduationCap size={18} weight="fill" className="text-warning shrink-0" />
-              </div>
-              <p className="text-[17px] font-medium text-primary -mt-0.5">准备材料清单</p>
-              <div className="mt-2.5">
                 <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-gradient-to-r from-warning to-[#ffb340] text-white font-semibold text-[11px] shadow-sm shadow-warning/30">
                   2025-10版
                 </span>
               </div>
+              <p className="text-[17px] font-medium text-primary -mt-0.5">准备材料清单</p>
             </div>
           </div>
         </motion.header>
@@ -84,38 +98,47 @@ export function RoleSelectPage() {
 
         <p className="text-[13px] text-secondary mb-3">选择您的学历背景</p>
 
-        <div className="space-y-2.5">
-          {roles.map((role, index) => (
-            <motion.button
-              key={role.id}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.15 + index * 0.05,
-                type: "spring",
-                stiffness: 280,
-                damping: 24
-              }}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-              onClick={() => handleSelectRole(role.id)}
-              aria-label={`选择${role.name}，${role.description}`}
-              className="group w-full p-4 bg-card rounded-2xl text-left flex items-center justify-between border border-transparent hover:border-accent/30 hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors duration-150"
-            >
-              <div>
-                <h3 className="text-[15px] font-medium text-primary group-hover:text-accent transition-colors">
-                  {role.name}
-                </h3>
-                <p className="text-[13px] text-secondary mt-0.5 group-hover:text-primary-light transition-colors">
-                  {role.description}
-                </p>
+        <div className="space-y-5">
+          {getGroupedRoles().map((group) => (
+            <div key={group.name}>
+              <h2 className="text-[12px] font-semibold text-secondary uppercase tracking-wider mb-2 ml-1">
+                {group.name}
+              </h2>
+              <div className="space-y-2.5">
+                {group.roles.map((role, index) => (
+                  <motion.button
+                    key={role.id}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: 0.15 + index * 0.05,
+                      type: "spring",
+                      stiffness: 280,
+                      damping: 24
+                    }}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    onClick={() => handleSelectRole(role.id)}
+                    aria-label={`选择${role.name}，${role.description}`}
+                    className="group w-full p-4 bg-card rounded-2xl text-left flex items-center justify-between border border-transparent hover:border-accent/30 hover:bg-accent-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 transition-colors duration-150"
+                  >
+                    <div>
+                      <h3 className="text-[15px] font-medium text-primary group-hover:text-accent transition-colors">
+                        {role.name}
+                      </h3>
+                      <p className="text-[13px] text-secondary mt-0.5 group-hover:text-primary-light transition-colors">
+                        {role.description}
+                      </p>
+                    </div>
+                    <CaretRight
+                      size={18}
+                      weight="bold"
+                      className="text-borderLight group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-150"
+                    />
+                  </motion.button>
+                ))}
               </div>
-              <CaretRight
-                size={18}
-                weight="bold"
-                className="text-borderLight group-hover:text-accent group-hover:translate-x-0.5 transition-all duration-150"
-              />
-            </motion.button>
+            </div>
           ))}
         </div>
       </motion.div>

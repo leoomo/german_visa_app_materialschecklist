@@ -4,10 +4,13 @@ export type RoleType =
   | "master_in_progress"
   | "master_graduated";
 
+export type RoleGroup = "在读" | "毕业";
+
 export interface Role {
   id: RoleType;
   name: string;
   description: string;
+  group: RoleGroup;
 }
 
 export type ItemSection = "原件" | "复印件" | "前提";

@@ -8,21 +8,25 @@ export const roles: Role[] = [
     id: "bachelor_in_progress",
     name: "大学在读",
     description: "本科在读，申请德国硕士",
+    group: "在读",
   },
   {
     id: "bachelor_graduated",
     name: "大学毕业",
     description: "本科毕业，申请德国硕士",
+    group: "毕业",
   },
   {
     id: "master_in_progress",
     name: "硕士在读",
     description: "硕士在读，申请德国博士或二硕",
+    group: "在读",
   },
   {
     id: "master_graduated",
     name: "硕士毕业",
     description: "硕士毕业，申请德国博士或二硕",
+    group: "毕业",
   },
 ];
 
