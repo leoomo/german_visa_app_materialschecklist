@@ -6,7 +6,7 @@ function App() {
   const { currentPage } = useAppStore();
 
   return (
-    <div className="min-h-screen bg-page">
+    <div className="min-h-screen w-full bg-page">
       {currentPage === "role-select" ? (
         <RoleSelectPage />
       ) : (

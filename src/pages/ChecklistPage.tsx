@@ -134,7 +134,7 @@ export function ChecklistPage() {
   const hasNoResults = filteredOriginalItems.length === 0 && filteredCopyItems.length === 0;
 
   return (
-    <div className="min-h-[100dvh] bg-page flex flex-col">
+    <div className="min-h-[100dvh] w-full bg-page flex flex-col">
       {/* 顶部导航 */}
       <motion.header
         initial={{ opacity: 0, y: -8 }}
@@ -142,7 +142,7 @@ export function ChecklistPage() {
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
         className="bg-card/80 backdrop-blur-xl shrink-0 sticky top-0 z-10 relative"
       >
-        <div className="max-w-[560px] mx-auto px-6 py-4">
+        <div className="max-w-full md:max-w-[600px] lg:max-w-[700px] mx-auto px-6 py-4">
           <div className="flex items-center gap-4">
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -193,7 +193,7 @@ export function ChecklistPage() {
       </motion.header>
 
       {/* 主内容 */}
-      <div className="flex-1 max-w-[560px] mx-auto w-full px-6 py-5 space-y-4 overflow-y-auto">
+      <div className="flex-1 max-w-full md:max-w-[600px] lg:max-w-[700px] mx-auto w-full px-6 py-5 space-y-4 overflow-y-auto">
         {/* 搜索 + 筛选 */}
         <div className="flex gap-3">
           <div className="relative flex-1">
