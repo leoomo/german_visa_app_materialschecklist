@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, MagnifyingGlass, FolderOpen } from "@phosphor-icons/react";
+import { ArrowLeft, MagnifyingGlass, FolderOpen, DownloadSimple, ArrowSquareOut } from "@phosphor-icons/react";
 import { useAppStore } from "../stores/useAppStore";
 import { roles, getChecklistForRole } from "../data/checklistData";
 import { ChecklistItemCard } from "../components/ChecklistItem";
@@ -198,6 +198,43 @@ export function ChecklistPage() {
 
       {/* 主内容 */}
       <div className="flex-1 max-w-full md:max-w-[600px] lg:max-w-[700px] mx-auto w-full px-6 py-5 space-y-4 overflow-y-auto">
+        {/* 特别提示 */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="p-3 bg-warningLight rounded-xl border border-warning/20"
+        >
+          {/* 免责申明的 */}
+          <p className="text-[11px] text-notice leading-relaxed">
+            <span className="font-semibold">特别提示：</span>本清单基于《上海留学签证特别提示》2025年10月版整理，后续可能存在变化，请以德国驻华使领馆官方最新发布为准
+          </p>
+
+          {/* PDF下载链接 */}
+          <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+            <a
+              href="https://www.aps.org.cn/wp-content/uploads/WichtigeHinweise_Visumantrag_SH_chn.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="特别提示2025-10版（在新标签页打开）"
+              className="inline-flex items-center gap-1.5 text-[12px] text-accent hover:text-accent-hover font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded"
+            >
+              <DownloadSimple size={14} weight="bold" />
+              <span>文件叠放顺序2025-10版本</span>
+            </a>
+            <a
+              href="https://china.diplo.de/resource/blob/1341652/8530b9e1b8358030d76875b658bcc09c/pdf-merkblatt-natvisum-studium-data.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="留学签证申请须知2025-01（在新标签页打开）"
+              className="inline-flex items-center gap-1 text-[12px] text-accent hover:text-accent-hover font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded"
+            >
+              <ArrowSquareOut size={12} weight="bold" />
+              <span>留学签证申请须知2025-01</span>
+            </a>
+          </div>
+        </motion.div>
+
         {/* 搜索 + 筛选 */}
         <div className="flex gap-3">
           <div className="relative flex-1">

@@ -76,22 +76,24 @@ export function RoleSelectPage() {
           {/* PDF下载链接 */}
           <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
             <a
-              href="/上海留学签证特别提示2025-10版.pdf"
-              download
+              href="https://www.aps.org.cn/wp-content/uploads/WichtigeHinweise_Visumantrag_SH_chn.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="文件叠放顺序2025-10版本（在新标签页打开）"
               className="inline-flex items-center gap-1.5 text-[12px] text-accent hover:text-accent-hover font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded"
             >
               <DownloadSimple size={14} weight="bold" />
-              <span>特别提示2025-10版</span>
+              <span>文件叠放顺序2025-10版本</span>
             </a>
             <a
               href="https://china.diplo.de/resource/blob/1341652/8530b9e1b8358030d76875b658bcc09c/pdf-merkblatt-natvisum-studium-data.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="申请须知2025-01（在新标签页打开）"
+              aria-label="留学签证申请须知2025-01（在新标签页打开）"
               className="inline-flex items-center gap-1 text-[12px] text-accent hover:text-accent-hover font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded"
             >
               <ArrowSquareOut size={12} weight="bold" />
-              <span>申请须知2025-01</span>
+              <span>留学签证申请须知2025-01</span>
             </a>
           </div>
         </motion.div>
