@@ -55,6 +55,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
       if (hoverTimeoutRef.current) {
         clearTimeout(hoverTimeoutRef.current);
       }
+      // 如果不是手动展开的状态，则收起详情
       setShowDetails(false);
     }
 
@@ -65,9 +66,14 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
     };
   }, [isHovered, hasDetails, isCompleted]);
 
+  // 切换详情显示（支持键盘和点击）
+  const toggleDetails = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.stopPropagation();
+    setShowDetails(!showDetails);
+  };
+
   return (
     <motion.div
-      layout
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -76,7 +82,7 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
         stiffness: 400,
         damping: 30
       }}
-      className="rounded-2xl overflow-hidden bg-card transition-shadow duration-200 hover:shadow-md"
+      className="rounded-xl overflow-hidden bg-card shadow-card hover:shadow-cardHover transition-shadow duration-200"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -185,11 +191,26 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
               </span>
             )}
 
-            {/* 详情标识 - 有详情且未完成时显示 */}
+            {/* 详情标识 - 有详情且未完成时显示，支持键盘和点击 */}
             {hasDetails && !isCompleted && (
-              showDetails
-                ? <CaretDown size={14} weight="bold" className="text-secondary/60 shrink-0" />
-                : <CaretRight size={14} weight="bold" className="text-secondary/60 shrink-0" />
+              <button
+                type="button"
+                aria-expanded={showDetails}
+                aria-label={showDetails ? "收起详情" : "展开详情"}
+                onClick={toggleDetails}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleDetails(e);
+                  }
+                }}
+                className="p-1 -m-1 rounded cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent shrink-0"
+              >
+                {showDetails
+                  ? <CaretDown size={14} weight="bold" className="text-secondary/60" />
+                  : <CaretRight size={14} weight="bold" className="text-secondary/60" />
+                }
+              </button>
             )}
           </div>
 
@@ -199,28 +220,29 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
         </div>
       </div>
 
-      {/* 展开的详情内容 */}
+      {/* 展开的详情内容 - 使用 grid-template-rows 动画 */}
       <AnimatePresence>
         {showDetails && hasDetails && !isCompleted && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
+            initial={{ gridTemplateRows: "0fr" }}
+            animate={{ gridTemplateRows: "1fr" }}
+            exit={{ gridTemplateRows: "0fr" }}
             transition={{ type: "spring", stiffness: 400, damping: 30 }}
-            className="overflow-hidden"
           >
-            <div className="px-4 pb-3 pt-1 ml-[35px] border-t border-border/50 mt-2">
-              <ul className="space-y-1.5">
-                {item.details!.map((detail, i) => (
-                  <li
-                    key={i}
-                    className="text-[13px] text-secondary flex items-start gap-2"
-                  >
-                    <span className="text-success mt-0.5 shrink-0">•</span>
-                    <span>{renderTextWithLinks(detail)}</span>
-                  </li>
-                ))}
-              </ul>
+            <div className="overflow-hidden">
+              <div className="px-4 pb-3 pt-1 ml-[35px] border-t border-border/50 mt-2">
+                <ul className="space-y-1.5">
+                  {item.details!.map((detail, i) => (
+                    <li
+                      key={i}
+                      className="text-[13px] text-secondary flex items-start gap-2"
+                    >
+                      <span className="text-success mt-0.5 shrink-0">•</span>
+                      <span>{renderTextWithLinks(detail)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </motion.div>
         )}
