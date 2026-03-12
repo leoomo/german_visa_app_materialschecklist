@@ -17,7 +17,7 @@ export interface ChecklistItem {
   section: ItemSection;  // 所属部分
   itemId: string;  // 唯一标识符（用于追踪完成状态）
   name: string;
-  requirement: "原件" | "复印件" | "原件+复印件" | "确认";
+  requirement: "原件" | "复印件" | "原件+复印件" | "原件+复印件+翻译" | "复印件+翻译" | "确认";
   isKey: boolean;
   notes: string;
   details?: string[];

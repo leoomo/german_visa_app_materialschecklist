@@ -53,13 +53,13 @@ function createItem(
 // 前提材料部分 - 必须在所有材料之前确认
 const premiseItems: InternalChecklistItem[] = [
   createItem(1, "前提", "确认常住地为上海辖区", "确认", false, "递签时需提供居住材料证明，若常住地不属于上海辖区即使有预约也无法递交"),
-  createItem(2, "前提", "准备居住证明", "原件", true, "以下材料任选其一：", [
+  createItem(2, "前提", "准备居住证明", "原件+复印件+翻译", true, "以下材料任选其一：", [
     "居住证",
     "近几个月社保证明",
     "上海户籍证明（户口本或户口卡）",
     "以上材料需出示原件，附复印件1份，德文或英文翻译件1份（自行翻译即可，无需公证）"
   ]),
-  createItem(3, "前提", "准备居住目的说明", "复印件", true, "至少需近几个月且开具到递签前", [
+  createItem(3, "前提", "准备居住目的说明", "原件+复印件+翻译", true, "至少需近几个月且开具到递签前，以下材料任选其一或多个：", [
     "在职证明",
     "实习证明",
     "语言班证明",
@@ -109,7 +109,7 @@ const originalItems: InternalChecklistItem[] = [
 
 // 复印件部分 (1-15) - 与PDF编号一致
 const copyItems: InternalChecklistItem[] = [
-  createItem(1, "复印件", "签证申请表原件", "复印件", false, "首页贴照片，末页申请人亲笔签名（中文加拼音）", [
+  createItem(1, "复印件", "签证申请表原件", "复印件+翻译", false, "首页贴照片，末页申请人亲笔签名（中文加拼音）", [
     "首页粘贴护照照片",
     "末页申请人亲笔签名（中文加拼音），字迹跟护照页上的中文签名一致",
     "第12项拟在德国居留时间：居留开始时间应与VIDEX二维码文件中填写的入境日期一致",
@@ -120,16 +120,16 @@ const copyItems: InternalChecklistItem[] = [
     "打印签字后放在签证申请表后",
   ]),
   createItem(3, "复印件", "护照照片页复印件", "复印件", false),
-  createItem(4, "复印件", "德国高校录取通知书复印件或大学预备语言班报名证明复印件", "复印件", false, "", [
+  createItem(4, "复印件", "德国高校录取通知书复印件或大学预备语言班报名证明复印件", "复印件+翻译", false, "", [
     "若入学时间紧张，相关证明文件或往来邮件放在此复印件后面",
   ]),
   createItem(5, "复印件", "大学授课语言和要求达到的语言级别的说明", "复印件", false),
   createItem(6, "复印件", "经济来源证明复印件", "复印件", false),
   createItem(7, "复印件", "语言水平证明复印件", "复印件", false, "若是中文证明须附德文或英文翻译"),
-  createItem(8, "复印件", "高中毕业证书复印件，并附德文或英文翻译", "复印件", false, "适用于高考程序", undefined, []), // 高考程序专用
-  createItem(9, "复印件", "中国高校在读证明/休学证明/退学证明的复印件，并附德文或英文翻译", "复印件", false, "适用于中国高校在读生", undefined, ["bachelor_in_progress", "master_in_progress"]),
-  createItem(10, "复印件", "本科毕业证书和本科学位证书的复印件，并附德文或英文翻译", "复印件", false, "适用于本科毕业生、硕士生在读生以及硕士毕业生", undefined, ["bachelor_graduated", "master_in_progress", "master_graduated"]),
-  createItem(11, "复印件", "硕士毕业证书和硕士学位证书的复印件，并附德文或英文翻译", "复印件", false, "适用于硕士毕业生", undefined, ["master_graduated"]),
+  createItem(8, "复印件", "高中毕业证书复印件，并附德文或英文翻译", "复印件+翻译", false, "适用于高考程序", undefined, []), // 高考程序专用
+  createItem(9, "复印件", "中国高校在读证明/休学证明/退学证明的复印件，并附德文或英文翻译", "复印件+翻译", false, "适用于中国高校在读生", undefined, ["bachelor_in_progress", "master_in_progress"]),
+  createItem(10, "复印件", "本科毕业证书和本科学位证书的复印件，并附德文或英文翻译", "复印件+翻译", false, "适用于本科毕业生、硕士生在读生以及硕士毕业生", undefined, ["bachelor_graduated", "master_in_progress", "master_graduated"]),
+  createItem(11, "复印件", "硕士毕业证书和硕士学位证书的复印件，并附德文或英文翻译", "复印件+翻译", false, "适用于硕士毕业生", undefined, ["master_graduated"]),
   createItem(12, "复印件", "德文或英文个人简历", "复印件", false, "至今为止无间断经历"),
   createItem(13, "复印件", "德文或英文留学动机说明", "复印件", false, "申请人亲笔签名（中文加拼音）"),
   createItem(14, "复印件", "留德人员审核部审核证书/审核证明/审核传真的复印件", "复印件", false),
