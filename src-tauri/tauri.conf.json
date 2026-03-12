@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "签证清单",
+  "productName": "German Visa Checklist",
   "version": "1.0.0",
-  "identifier": "com.visachecklist.app",
+  "identifier": "com.visachecklist.german",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1421",
@@ -27,5 +27,14 @@
       "csp": null
     }
   },
-  "plugins": {}
+  "plugins": {},
+  "bundle": {
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ]
+  }
 }
