@@ -10,6 +10,7 @@
     "dialog:allow-message",
     "dialog:allow-ask",
     "dialog:allow-confirm",
+    "shell:allow-open",
     "fs:default",
     "fs:allow-read-text-file",
     "fs:allow-write-text-file",
