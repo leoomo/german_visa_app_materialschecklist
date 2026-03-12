@@ -51,7 +51,7 @@ export async function exportToExcel(): Promise<boolean> {
 
     // 打开保存对话框
     const filePath = await save({
-      defaultPath: `签证清单-${role.name}.xlsx`,
+      defaultPath: `上海签证递签材料清单-${role.name}.xlsx`,
       filters: [{ name: "Excel", extensions: ["xlsx"] }],
     });
 

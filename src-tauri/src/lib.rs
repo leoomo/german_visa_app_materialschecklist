@@ -7,7 +7,7 @@ pub fn run() {
         .plugin(tauri_plugin_fs::init())
         .setup(|app| {
             let window = app.get_webview_window("main").unwrap();
-            window.set_title("签证清单").unwrap();
+            window.set_title("上海签证清单").unwrap();
             Ok(())
         })
         .run(tauri::generate_context!())
