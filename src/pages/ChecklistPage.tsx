@@ -245,7 +245,17 @@ export function ChecklistPage() {
               <FolderOpen size={24} weight="duotone" className="text-secondary" />
             </div>
             <p className="text-[15px] text-secondary">未找到匹配的材料</p>
-            <p className="text-[13px] text-secondary/60 mt-1">尝试其他关键词</p>
+            {(searchQuery || filter !== "all") && (
+              <button
+                onClick={() => {
+                  setSearchQuery("");
+                  setFilter("all");
+                }}
+                className="mt-3 px-4 py-2 text-[13px] text-accent hover:text-accent-hover font-medium"
+              >
+                清除筛选条件
+              </button>
+            )}
           </div>
         ) : (
           <div className="space-y-6">

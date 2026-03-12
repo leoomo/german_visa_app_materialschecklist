@@ -37,6 +37,8 @@ export default {
         borderLight: '#d1d1d6',
         // 链接色
         link: '#007aff',
+        // 提示文字色
+        notice: '#8c7000',
       },
     },
   },

@@ -103,14 +103,16 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
           </div>
         </button>
 
-        {/* 左侧色条 - 原件黄色，复印件灰色 */}
+        {/* 左侧色条 - 前提蓝色，原件黄色，复印件灰色 */}
         <div className={`
           w-[3px] self-stretch transition-colors duration-300
           ${isCompleted
             ? "bg-success"
-            : item.section === "原件"
-              ? "bg-warning"
-              : "bg-borderLight"
+            : item.section === "前提"
+              ? "bg-accent"
+              : item.section === "原件"
+                ? "bg-warning"
+                : "bg-borderLight"
           }
         `} />
 
@@ -118,12 +120,20 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
         <div className="flex-1 min-w-0 px-4 py-3">
           <div className="flex items-center gap-2 flex-wrap">
             <span
+              role="button"
+              tabIndex={0}
               className={`
                 font-medium text-[15px] tracking-tight transition-all duration-200 cursor-pointer
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 rounded
                 ${isCompleted ? "text-secondary line-through" : "text-primary"}
               `}
               onClick={onToggle}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onToggle();
+                }
+              }}
             >
               {item.id}. {item.name}
             </span>

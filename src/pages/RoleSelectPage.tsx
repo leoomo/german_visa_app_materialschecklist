@@ -55,7 +55,7 @@ export function RoleSelectPage() {
           className="mb-6 p-3 bg-warningLight rounded-xl border border-warning/20"
         >
           {/* 免责申明 */}
-          <p className="text-[11px] text-[#8c7000] leading-relaxed">
+          <p className="text-[11px] text-notice leading-relaxed">
             <span className="font-semibold">特别提示：</span>本清单基于《上海留学签证特别提示》2025年10月版整理，后续可能存在变化，请以德国驻华使领馆官方最新发布为准
           </p>
 
