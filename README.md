@@ -25,13 +25,13 @@
 
 ### 从 Release 下载
 
-前往 [Releases](https://github.com/your-repo/visa-checklist/releases) 页面下载最新版本的安装包。
+前往 [Releases](https://github.com/leoomo/german_visa_app_materialschecklist/releases) 页面下载最新版本的安装包。
 
 ### 自行构建
 
 ```bash
 # 克隆项目
-git clone https://github.com/your-repo/visa-checklist.git
+git clone https://github.com/leoomo/german_visa_app_materialschecklist.git
 cd visa-checklist
 
 # 安装依赖
