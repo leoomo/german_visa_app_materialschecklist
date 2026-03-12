@@ -7,11 +7,13 @@ function App() {
 
   return (
     <div className="min-h-screen w-full bg-page">
-      {currentPage === "role-select" ? (
-        <RoleSelectPage />
-      ) : (
-        <ChecklistPage />
-      )}
+      <main className="min-h-screen w-full">
+        {currentPage === "role-select" ? (
+          <RoleSelectPage />
+        ) : (
+          <ChecklistPage />
+        )}
+      </main>
     </div>
   );
 }
