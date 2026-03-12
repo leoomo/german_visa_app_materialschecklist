@@ -1,17 +1,25 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 背景 - 深色圆角矩形 -->
-  <rect width="512" height="512" rx="108" fill="#1a1a1a"/>
+  <!-- 背景 - 深灰渐变 -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D2D2D"/>
+      <stop offset="100%" stop-color="#1A1A1A"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="108" fill="url(#bgGrad)"/>
 
-  <!-- 德国国旗斜条纹 - 更醒目的设计 -->
-  <path d="M0 120 L512 0 L512 512 L0 392 Z" fill="#DD0000"/>
-  <path d="M0 200 L512 80 L512 280 L0 400 Z" fill="#FFCE00"/>
-  <path d="M0 280 L512 160 L512 200 L0 320 Z" fill="#000000"/>
+  <!-- 德国国旗色带 - 横向三色条纹，更宽更醒目 -->
+  <rect x="80" y="130" width="352" height="80" fill="#000000"/>
+  <rect x="80" y="210" width="352" height="80" fill="#DD0000"/>
+  <rect x="80" y="290" width="352" height="80" fill="#FFCE00"/>
 
-  <!-- 前景 - 白色V形/勾选框 -->
-  <path d="M140 420 L220 280 L300 420" stroke="white" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  <circle cx="360" cy="320" r="50" stroke="white" stroke-width="16" fill="none"/>
-  <path d="M335 320 L350 335 L385 295" stroke="white" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- 装饰性边框 -->
+  <rect x="64" y="64" width="384" height="384" rx="32" stroke="white" stroke-width="4" stroke-opacity="0.3" fill="none"/>
 
-  <!-- 底部装饰线 -->
-  <rect x="120" y="450" width="272" height="6" rx="3" fill="white" fill-opacity="0.9"/>
+  <!-- 前景 - 白色勾选符号，突出"签证清单"概念 -->
+  <circle cx="380" cy="380" r="60" fill="white" fill-opacity="0.95"/>
+  <path d="M350 380 L370 400 L410 355" stroke="#1A1A1A" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+
+  <!-- 顶部装饰 - 模拟护照/文件角标 -->
+  <path d="M80 64 L80 120 L136 64" stroke="#FFCE00" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 </svg>

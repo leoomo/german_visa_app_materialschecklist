@@ -1,12 +1,12 @@
 [package]
-name = "visa-checklist"
+name = "german_visa_app_materialschecklist"
 version = "1.0.0"
 description = "德国留学签证清单"
 authors = []
 edition = "2021"
 
 [lib]
-name = "visa_checklist_lib"
+name = "german_visa_app_materialschecklist_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
