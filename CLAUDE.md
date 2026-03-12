@@ -80,3 +80,4 @@ Checklist data in `src/data/checklistData.ts` is based on:
 - The app window is configured to 900x700 pixels in `src-tauri/tauri.conf.json`
 - State persistence uses Zustand with localStorage in `src/stores/useAppStore.ts`
 - Tailwind theme uses custom colors defined in `tailwind.config.js`
+- Codex 會在結束後審查你的代碼
