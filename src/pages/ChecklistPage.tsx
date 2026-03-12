@@ -64,12 +64,15 @@ export function ChecklistPage() {
   );
 
   // 按区块分组并筛选
-  const { filteredOriginalItems, filteredCopyItems } = useMemo(() => {
+  const { filteredPremiseItems, filteredOriginalItems, filteredCopyItems } = useMemo(() => {
+    const premises: ChecklistItem[] = [];
     const originals: ChecklistItem[] = [];
     const copies: ChecklistItem[] = [];
 
     allItems.forEach(item => {
-      if (item.section === "原件") {
+      if (item.section === "前提") {
+        premises.push(item);
+      } else if (item.section === "原件") {
         originals.push(item);
       } else {
         copies.push(item);
@@ -99,6 +102,7 @@ export function ChecklistPage() {
     };
 
     return {
+      filteredPremiseItems: applyFilter(premises),
       filteredOriginalItems: applyFilter(originals),
       filteredCopyItems: applyFilter(copies)
     };
@@ -131,7 +135,7 @@ export function ChecklistPage() {
     { key: "completed", label: "已完成", count: completed },
   ];
 
-  const hasNoResults = filteredOriginalItems.length === 0 && filteredCopyItems.length === 0;
+  const hasNoResults = filteredPremiseItems.length === 0 && filteredOriginalItems.length === 0 && filteredCopyItems.length === 0;
 
   return (
     <div className="min-h-[100dvh] w-full bg-page flex flex-col">
@@ -245,6 +249,28 @@ export function ChecklistPage() {
           </div>
         ) : (
           <div className="space-y-6">
+            {/* 区块零：前提材料 */}
+            {filteredPremiseItems.length > 0 && (
+              <div>
+                <SectionHeader
+                  title="前提材料（必须先确认）"
+                  subtitle="递签时需提供居住材料证明，若常住地不属于上海辖区即使有预约也无法递交"
+                  index={0}
+                />
+                <div className="space-y-2">
+                  {filteredPremiseItems.map((item, index) => (
+                    <ChecklistItemCard
+                      key={item.itemId}
+                      item={item}
+                      isCompleted={completedSet.has(item.itemId)}
+                      onToggle={() => toggleItem(item.itemId)}
+                      index={index}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* 区块一：以下材料须递交原件 */}
             {filteredOriginalItems.length > 0 && (
               <div>

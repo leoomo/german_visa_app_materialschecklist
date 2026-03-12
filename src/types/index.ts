@@ -10,14 +10,14 @@ export interface Role {
   description: string;
 }
 
-export type ItemSection = "原件" | "复印件";
+export type ItemSection = "原件" | "复印件" | "前提";
 
 export interface ChecklistItem {
   id: number;  // 显示编号（在section内）
   section: ItemSection;  // 所属部分
   itemId: string;  // 唯一标识符（用于追踪完成状态）
   name: string;
-  requirement: "原件" | "复印件" | "原件+复印件";
+  requirement: "原件" | "复印件" | "原件+复印件" | "确认";
   isKey: boolean;
   notes: string;
   details?: string[];

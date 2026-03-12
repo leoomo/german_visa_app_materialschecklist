@@ -50,6 +50,24 @@ function createItem(
   };
 }
 
+// 前提材料部分 - 必须在所有材料之前确认
+const premiseItems: InternalChecklistItem[] = [
+  createItem(1, "前提", "确认常住地为上海辖区", "确认", false, "递签时需提供居住材料证明，若常住地不属于上海辖区即使有预约也无法递交"),
+  createItem(2, "前提", "准备居住证明", "原件", true, "以下材料任选其一：", [
+    "居住证",
+    "近几个月社保证明",
+    "上海户籍证明（户口本或户口卡）",
+    "以上材料需出示原件，附复印件1份，德文或英文翻译件1份（自行翻译即可，无需公证）"
+  ]),
+  createItem(3, "前提", "准备居住目的说明", "复印件", true, "至少需近几个月且开具到递签前", [
+    "在职证明",
+    "实习证明",
+    "语言班证明",
+    "或其他能证明居住目的的材料",
+    "以上材料需出示原件，附复印件1份，德文或英文翻译件1份（自行翻译即可，无需公证）"
+  ]),
+];
+
 // 原件部分 (1-12) - 与PDF编号一致
 const originalItems: InternalChecklistItem[] = [
   createItem(1, "原件", "护照", "原件", false, "有效期不少于6个月"),
@@ -133,7 +151,7 @@ export function getChecklistForRole(roleId: RoleType): ChecklistItem[] {
   if (roleCache.has(roleId)) {
     return roleCache.get(roleId)!;
   }
-  const result = [...filterItemsByRole(originalItems, roleId), ...filterItemsByRole(copyItems, roleId)];
+  const result = [...premiseItems, ...filterItemsByRole(originalItems, roleId), ...filterItemsByRole(copyItems, roleId)];
   roleCache.set(roleId, result);
   return result;
 }
