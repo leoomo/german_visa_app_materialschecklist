@@ -100,6 +100,9 @@ export async function importFromExcel(): Promise<boolean> {
     // 解析第一个工作表
     const sheetName = workbook.SheetNames[0];
     const sheet = workbook.Sheets[sheetName];
+    if (!sheet) {
+      throw new Error("Excel 文件为空或格式不正确");
+    }
     const data = XLSX.utils.sheet_to_json<ExcelRow>(sheet);
 
     // 根据清单名称匹配并更新勾选状态 (使用 Set 实现 O(1) 查找)
