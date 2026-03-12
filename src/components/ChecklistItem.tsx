@@ -128,17 +128,49 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index }: Checkl
               {item.id}. {item.name}
             </span>
 
-            {item.requirement !== "原件" && (
-              <span className="text-[12px] text-secondary bg-page px-2 py-0.5 rounded-md">
-                {item.requirement}
-              </span>
+            {/* 显示多个标签 */}
+            {item.requirement === "复印件+翻译" && (
+              <>
+                <span className="text-[12px] text-secondary bg-page px-2 py-0.5 rounded-md">
+                  复印件
+                </span>
+                <span className="text-[12px] text-secondary bg-page px-2 py-0.5 rounded-md">
+                  翻译
+                </span>
+              </>
             )}
-            {item.requirement.includes("原件") && (
+            {item.requirement === "原件+复印件+翻译" && (
+              <>
+                <span className={`
+                  text-[12px] font-medium px-2 py-0.5 rounded-md
+                  ${isCompleted ? "bg-successLight text-success" : "bg-warningLight text-warning"}
+                `}>
+                  原件
+                </span>
+                <span className="text-[12px] text-secondary bg-page px-2 py-0.5 rounded-md">
+                  复印件
+                </span>
+                <span className="text-[12px] text-secondary bg-page px-2 py-0.5 rounded-md">
+                  翻译
+                </span>
+              </>
+            )}
+            {item.requirement !== "原件+复印件+翻译" && item.requirement.includes("原件") && (
               <span className={`
                 text-[12px] font-medium px-2 py-0.5 rounded-md
                 ${isCompleted ? "bg-successLight text-success" : "bg-warningLight text-warning"}
               `}>
                 原件
+              </span>
+            )}
+            {item.requirement !== "原件+复印件+翻译" && item.requirement === "复印件" && (
+              <span className="text-[12px] text-secondary bg-page px-2 py-0.5 rounded-md">
+                复印件
+              </span>
+            )}
+            {item.requirement === "确认" && (
+              <span className="text-[12px] text-accent bg-accent-light px-2 py-0.5 rounded-md">
+                确认
               </span>
             )}
 
