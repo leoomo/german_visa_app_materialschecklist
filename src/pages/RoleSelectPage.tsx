@@ -18,7 +18,7 @@ export function RoleSelectPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="w-full max-w-[420px] mx-auto px-6 py-12"
+        className="w-full max-w-full md:max-w-[500px] lg:max-w-[600px] mx-auto px-6 py-12"
       >
         <motion.header
           initial={{ opacity: 0, y: 8 }}
