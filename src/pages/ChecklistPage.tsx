@@ -180,23 +180,35 @@ export function ChecklistPage() {
           </div>
         </div>
 
-        {/* 渐变进度底边 */}
+        {/* 渐变进度底边 - 带脉冲效果 */}
         <motion.div
-          className="absolute bottom-0 left-0 h-[2px]"
-          style={{ width: `${percentage}%` }}
+          className="absolute bottom-0 left-0 h-[2px] rounded-full"
           initial={{ width: 0 }}
-          animate={{ width: `${percentage}%` }}
+          animate={{
+            width: `${percentage}%`,
+            boxShadow: percentage > 0 && percentage < 100
+              ? `0 0 8px ${progressColor}, 0 0 16px ${progressColor}40`
+              : 'none'
+          }}
           transition={{ type: "spring", stiffness: 100, damping: 20 }}
         >
-          <div
-            className="h-full w-full"
+          <motion.div
+            className="h-full w-full rounded-full"
             style={{ background: progressColor }}
+            animate={percentage > 0 && percentage < 100 ? {
+              opacity: [1, 0.7, 1]
+            } : { opacity: 1 }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
           />
         </motion.div>
         <div className="absolute bottom-0 right-0 h-[2px] bg-border" style={{ left: `${percentage}%` }} />
       </motion.header>
 
-      {/* 主内容 */}
+      {/* 主内容 - 居中布局 */}
       <div className="flex-1 max-w-full md:max-w-[600px] lg:max-w-[700px] mx-auto w-full px-6 py-5 space-y-4 overflow-y-auto">
         {/* 特别提示 */}
         <motion.div

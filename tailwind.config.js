@@ -21,9 +21,9 @@ export default {
           light: '#a1a1a6',
         },
         accent: {
-          DEFAULT: '#0071e3',
-          hover: '#0077ed',
-          light: '#f0f7ff',
+          DEFAULT: '#0056b3',
+          hover: '#0066c3',
+          light: '#e6f0fa',
         },
         // 语义色
         success: '#34c759',
@@ -36,9 +36,16 @@ export default {
         border: '#e8e8ed',
         borderLight: '#d1d1d6',
         // 链接色
-        link: '#007aff',
+        link: '#0056b3',
         // 提示文字色
         notice: '#8c7000',
+      },
+      boxShadow: {
+        card: '0 1px 2px rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.06)',
+        cardHover: '0 2px 4px rgba(0,0,0,0.06), 0 6px 16px rgba(0,0,0,0.08)',
+      },
+      borderRadius: {
+        DEFAULT: '12px',
       },
     },
   },
