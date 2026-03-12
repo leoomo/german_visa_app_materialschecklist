@@ -1,15 +1,17 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 背景圆角矩形 -->
-  <rect width="512" height="512" rx="108" fill="#f5f5f7"/>
+  <!-- 背景 - 深色圆角矩形 -->
+  <rect width="512" height="512" rx="108" fill="#1a1a1a"/>
 
-  <!-- 主圆形边框 -->
-  <circle cx="256" cy="230" r="140" stroke="#34c759" stroke-width="12" fill="none"/>
+  <!-- 德国国旗斜条纹 - 更醒目的设计 -->
+  <path d="M0 120 L512 0 L512 512 L0 392 Z" fill="#DD0000"/>
+  <path d="M0 200 L512 80 L512 280 L0 400 Z" fill="#FFCE00"/>
+  <path d="M0 280 L512 160 L512 200 L0 320 Z" fill="#000000"/>
 
-  <!-- V 字母 -->
-  <path d="M180 200 L240 280 L332 180" stroke="#34c759" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- 前景 - 白色V形/勾选框 -->
+  <path d="M140 420 L220 280 L300 420" stroke="white" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="360" cy="320" r="50" stroke="white" stroke-width="16" fill="none"/>
+  <path d="M335 320 L350 335 L385 295" stroke="white" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
 
-  <!-- 底部德国三色线 -->
-  <rect x="156" y="400" width="200" height="8" rx="4" fill="#1d1d1f"/>
-  <rect x="156" y="408" width="200" height="8" rx="4" fill="#dd0000"/>
-  <rect x="156" y="416" width="200" height="8" rx="4" fill="#ffcc00"/>
+  <!-- 底部装饰线 -->
+  <rect x="120" y="450" width="272" height="6" rx="3" fill="white" fill-opacity="0.9"/>
 </svg>
