@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { RoleType } from "../types";
-import { getTotalItemsForRole } from "../data/checklistData";
+import { getChecklistForRole } from "../data/checklistData";
 
 interface AppState {
   currentPage: "role-select" | "checklist";
@@ -15,6 +15,7 @@ interface AppState {
   isItemCompleted: (itemId: string) => boolean;
   getProgress: () => { completed: number; total: number; percentage: number };
   resetProgress: () => void;
+  cleanupInvalidItems: () => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -60,8 +61,13 @@ export const useAppStore = create<AppState>()(
         const { selectedRole, completedItems } = get();
         if (!selectedRole) return { completed: 0, total: 0, percentage: 0 };
 
-        const total = getTotalItemsForRole(selectedRole);
-        const completed = completedItems[selectedRole]?.length || 0;
+        const allItems = getChecklistForRole(selectedRole);
+        const validItemIds = new Set(allItems.map(item => item.itemId));
+        const total = allItems.length;
+
+        // 只统计存在于当前角色清单中的已完成项
+        const roleCompleted = completedItems[selectedRole] || [];
+        const completed = roleCompleted.filter(itemId => validItemIds.has(itemId)).length;
         const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
         return { completed, total, percentage };
@@ -75,10 +81,31 @@ export const useAppStore = create<AppState>()(
           master_graduated: [],
         },
       }),
+
+      cleanupInvalidItems: () => {
+        const { completedItems } = get();
+        const roles: RoleType[] = ["bachelor_in_progress", "bachelor_graduated", "master_in_progress", "master_graduated"];
+
+        const cleanedItems = { ...completedItems };
+
+        roles.forEach(role => {
+          const validItems = new Set(getChecklistForRole(role).map(item => item.itemId));
+          const roleCompleted = completedItems[role] || [];
+          cleanedItems[role] = roleCompleted.filter(itemId => validItems.has(itemId));
+        });
+
+        set({ completedItems: cleanedItems });
+      },
     }),
     {
       name: "visa-checklist-storage",
       storage: createJSONStorage(() => localStorage),
+      onRehydrateStorage: () => (state) => {
+        // 从 localStorage 恢复后，清理无效的 completedItems
+        if (state) {
+          state.cleanupInvalidItems();
+        }
+      },
     }
   )
 );
