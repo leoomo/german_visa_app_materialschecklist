@@ -323,7 +323,7 @@ export function ChecklistPage() {
             {filteredPremiseItems.length > 0 && (
               <div>
                 <SectionHeader
-                  title="前提材料（必须先确认）"
+                  title="上海辖区居住证明材料"
                   subtitle="递签时需提供居住材料证明，若常住地不属于上海辖区即使有预约也无法递交"
                   index={0}
                 />
