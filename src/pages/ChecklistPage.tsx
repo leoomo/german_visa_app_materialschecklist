@@ -1,10 +1,11 @@
 import { useState, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, MagnifyingGlass, FolderOpen, DownloadSimple, ArrowSquareOut } from "@phosphor-icons/react";
 import { useAppStore } from "../stores/useAppStore";
 import { roles, getChecklistForRole } from "../data/checklistData";
 import { ChecklistItemCard } from "../components/ChecklistItem";
 import { ImportExportMenu } from "../components/ImportExportMenu";
+import { SuccessBadge } from "../components/SuccessBadge";
 import { FilterType, ChecklistItem } from "../types";
 
 // 区块标题组件
@@ -51,7 +52,6 @@ export function ChecklistPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState<FilterType>("all");
   const [hoveredItemId, setHoveredItemId] = useState<string | null>(null);
-
   // 处理 item 悬停 - 带延迟展开
   const handleItemHover = (itemId: string) => {
     setHoveredItemId(itemId);
@@ -68,10 +68,15 @@ export function ChecklistPage() {
     return getChecklistForRole(selectedRole);
   }, [selectedRole]);
 
-  // Use Set for O(1) lookup
+  // Use Set for O(1) lookup - 只包含当前角色可见清单中的已完成项
   const completedSet = useMemo(
-    () => new Set(selectedRole ? (completedItems[selectedRole] || []) : []),
-    [completedItems, selectedRole]
+    () => {
+      if (!selectedRole) return new Set<string>();
+      const validItemIds = new Set(allItems.map(item => item.itemId));
+      const roleCompleted = completedItems[selectedRole] || [];
+      return new Set(roleCompleted.filter(itemId => validItemIds.has(itemId)));
+    },
+    [completedItems, selectedRole, allItems]
   );
 
   // 按区块分组并筛选
@@ -176,15 +181,45 @@ export function ChecklistPage() {
               <p className="text-[13px] text-secondary">{role.description}</p>
             </div>
 
-            {/* 进度数字 */}
-            <div className="shrink-0 text-right">
-              <div
-                className="text-[24px] font-semibold tracking-tight leading-none"
-                style={{ color: progressColor }}
-              >
-                {percentage}%
-              </div>
-              <div className="text-[11px] text-secondary mt-0.5">{completed}/{total}</div>
+            {/* 进度数字或成功徽章 - 使用 AnimatePresence 进行平滑过渡 */}
+            <div className="shrink-0 text-right w-[80px]">
+              <AnimatePresence mode="popLayout">
+                {percentage === 100 ? (
+                  <motion.div
+                    key="success"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30
+                    }}
+                  >
+                    <SuccessBadge disableAnimation />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="percentage"
+                    initial={{ scale: 1.2, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30
+                    }}
+                  >
+                    <div
+                      className="text-[24px] font-semibold tracking-tight leading-none"
+                      style={{ color: progressColor }}
+                    >
+                      {percentage}%
+                    </div>
+                    <div className="text-[11px] text-secondary mt-0.5">{completed}/{total}</div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             <ImportExportMenu />
