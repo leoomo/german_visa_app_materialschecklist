@@ -31,7 +31,10 @@
 
 ### 从 Release 下载
 
-前往 [Releases](https://github.com/leoomo/german_visa_app_materialschecklist/releases) 页面下载最新版本的安装包。
+前往 [Releases](https://github.com/leoomo/german_visa_app_materialschecklist/releases/latest) 页面下载最新版本：
+
+- **macOS**: 下载 `_aarch64.dmg` 文件（Apple Silicon）
+- **Windows**: 下载 `_x64-setup.exe` 文件
 
 ### 自行构建
 
