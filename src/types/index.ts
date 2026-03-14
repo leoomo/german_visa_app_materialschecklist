@@ -20,7 +20,7 @@ export interface ChecklistItem {
   section: ItemSection;  // 所属部分
   itemId: string;  // 唯一标识符（用于追踪完成状态）
   name: string;
-  requirement: "原件" | "复印件" | "原件+复印件" | "原件+复印件+翻译" | "复印件+翻译" | "翻译" | "确认" | "";
+  requirement: "原件" | "复印件" | "原件+复印件" | "原件+复印件+翻译" | "复印件+翻译" | "翻译" | "确认" | "签字" | "签字+复印件" | "签字+原件" | "签字+原件+复印件" | "";
   isKey: boolean;
   notes: string;
   details?: string[];

@@ -222,6 +222,66 @@ export function ChecklistItemCard({ item, isCompleted, onToggle, index, isHovere
                 确认
               </span>
             )}
+            {/* 签字标签 - 完成后变绿色 */}
+            {item.requirement === "签字" && (
+              <span className={`
+                text-[12px] font-medium px-2 py-0.5 rounded-md
+                ${isCompleted ? "bg-successLight text-success" : "bg-warningLight text-warning"}
+              `}>
+                签字
+              </span>
+            )}
+            {/* 签字 + 复印件 */}
+            {item.requirement === "签字+复印件" && (
+              <>
+                <span className={`
+                  text-[12px] font-medium px-2 py-0.5 rounded-md
+                  ${isCompleted ? "bg-successLight text-success" : "bg-warningLight text-warning"}
+                `}>
+                  签字
+                </span>
+                <span className="text-[12px] text-secondary bg-page px-2 py-0.5 rounded-md">
+                  复印件
+                </span>
+              </>
+            )}
+            {/* 签字 + 原件 */}
+            {item.requirement === "签字+原件" && (
+              <>
+                <span className={`
+                  text-[12px] font-medium px-2 py-0.5 rounded-md
+                  ${isCompleted ? "bg-successLight text-success" : "bg-warningLight text-warning"}
+                `}>
+                  签字
+                </span>
+                <span className={`
+                  text-[12px] font-medium px-2 py-0.5 rounded-md
+                  ${isCompleted ? "bg-successLight text-success" : "bg-warningLight text-warning"}
+                `}>
+                  原件
+                </span>
+              </>
+            )}
+            {/* 签字 + 原件 + 复印件 */}
+            {item.requirement === "签字+原件+复印件" && (
+              <>
+                <span className={`
+                  text-[12px] font-medium px-2 py-0.5 rounded-md
+                  ${isCompleted ? "bg-successLight text-success" : "bg-warningLight text-warning"}
+                `}>
+                  签字
+                </span>
+                <span className={`
+                  text-[12px] font-medium px-2 py-0.5 rounded-md
+                  ${isCompleted ? "bg-successLight text-success" : "bg-warningLight text-warning"}
+                `}>
+                  原件
+                </span>
+                <span className="text-[12px] text-secondary bg-page px-2 py-0.5 rounded-md">
+                  复印件
+                </span>
+              </>
+            )}
 
             {/* 详情标识 - 有详情且未完成时显示，支持键盘和点击 */}
             {hasDetails && !isCompleted && (

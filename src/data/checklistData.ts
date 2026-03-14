@@ -112,13 +112,13 @@ const originalItems: InternalChecklistItem[] = [
 
 // 复印件部分 (1-15) - 与PDF编号一致
 const copyItems: InternalChecklistItem[] = [
-  createItem(1, "复印件", "签证申请表原件", "", false, "首页贴照片，末页申请人亲笔签名（中文加拼音）", [
+  createItem(1, "复印件", "签证申请表原件", "签字+复印件", false, "首页贴照片，末页申请人亲笔签名（中文加拼音）", [
     "首页粘贴护照照片",
     "末页申请人亲笔签名（中文加拼音），字迹跟护照页上的中文签名一致",
     "第12项拟在德国居留时间：居留开始时间应与VIDEX二维码文件中填写的入境日期一致",
     "居留结束时间为预计完成德国学业的时间",
   ]),
-  createItem(2, "复印件", "《居留法》条款告知书", "", false, "申请人亲笔签名（中文加拼音）", [
+  createItem(2, "复印件", "《居留法》条款告知书", "签字+复印件", false, "申请人亲笔签名（中文加拼音）", [
     "下载: china.diplo.de/blob/2561254/5e9cccec777a2ca0b7aaa019dcd6f670/pdf-belehrung-zum-visumantrag-data.pdf",
     "打印签字后放在签证申请表后",
   ]),
@@ -134,7 +134,7 @@ const copyItems: InternalChecklistItem[] = [
   createItem(10, "复印件", "本科毕业证书和本科学位证书的复印件，并附德文或英文翻译", "复印件+翻译", false, "适用于本科毕业生、硕士生在读生以及硕士毕业生", undefined, ["bachelor_graduated", "master_in_progress", "master_graduated"]),
   createItem(11, "复印件", "硕士毕业证书和硕士学位证书的复印件，并附德文或英文翻译", "复印件+翻译", false, "适用于硕士毕业生", undefined, ["master_graduated"]),
   createItem(12, "复印件", "德文或英文个人简历", "", false, "至今为止无间断经历"),
-  createItem(13, "复印件", "德文或英文留学动机说明", "", false, "申请人亲笔签名（中文加拼音）"),
+  createItem(13, "复印件", "德文或英文留学动机说明", "签字", false, "申请人亲笔签名（中文加拼音）"),
   createItem(14, "复印件", "留德人员审核部审核证书/审核证明/审核传真的复印件", "复印件", false),
   createItem(15, "复印件", "入境后医疗保险证明复印件", "复印件", false),
 ];
