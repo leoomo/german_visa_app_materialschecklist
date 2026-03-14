@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, MagnifyingGlass, FolderOpen, DownloadSimple, ArrowSquareOut } from "@phosphor-icons/react";
+import { ArrowLeft, MagnifyingGlass, FolderOpen, DownloadSimple, ArrowSquareOut, WarningDiamond } from "@phosphor-icons/react";
 import { useAppStore } from "../stores/useAppStore";
 import { roles, getChecklistForRole } from "../data/checklistData";
 import { ChecklistItemCard } from "../components/ChecklistItem";
@@ -359,9 +359,25 @@ export function ChecklistPage() {
               <div>
                 <SectionHeader
                   title="上海辖区居住证明材料"
-                  subtitle="递签时需提供居住材料证明，若常住地不属于上海辖区即使有预约也无法递交"
                   index={0}
                 />
+
+                {/* 醒目提示框 */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.05 }}
+                  className="mb-3 p-3 bg-warningLight border border-warning/30 rounded-lg"
+                >
+                  <div className="flex items-start gap-2">
+                    <WarningDiamond size={18} weight="fill" className="text-warning shrink-0 mt-0.5" />
+                    <div className="text-[12px] text-notice leading-relaxed">
+                      <span className="font-semibold">重要提醒：</span>
+                      递签时需提供居住材料证明，若常住地不属于上海辖区即使有预约也无法递交
+                    </div>
+                  </div>
+                </motion.div>
+
                 <div className="space-y-2">
                   {filteredPremiseItems.map((item, index) => (
                     <ChecklistItemCard
@@ -408,9 +424,25 @@ export function ChecklistPage() {
               <div>
                 <SectionHeader
                   title="下列材料须按顺序整理，递交完整的一套"
-                  subtitle="复印件单面打印，不可装订"
                   index={1}
                 />
+
+                {/* 醒目提示框 */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.15 }}
+                  className="mb-3 p-3 bg-warningLight border border-warning/30 rounded-lg"
+                >
+                  <div className="flex items-start gap-2">
+                    <WarningDiamond size={18} weight="fill" className="text-warning shrink-0 mt-0.5" />
+                    <div className="text-[12px] text-notice leading-relaxed">
+                      <span className="font-semibold">重要提醒：</span>
+                      复印件单面打印（不可双面），不可用订书机/胶水装订，不接受公证件原件放复印件中，请勿重复预约
+                    </div>
+                  </div>
+                </motion.div>
+
                 <div className="space-y-2">
                   {filteredCopyItems.map((item, index) => (
                     <ChecklistItemCard
