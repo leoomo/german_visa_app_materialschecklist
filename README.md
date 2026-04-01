@@ -1,80 +1,85 @@
-# 德国留学签证材料清单管理
+# German Student Visa Materials Checklist
 
-帮助在上海办理德国留学签证的学生准备申请材料的桌面应用。
+<p align="center">
+  <a href="README.md">:uk: English</a> |
+  <a href="README.zh.md">:cn: 中文</a>
+</p>
 
-## 应用截图
+A desktop application helping students in Shanghai prepare German student visa application materials.
 
-| 角色选择页面 | 材料清单页面 |
+## Screenshots
+
+| Role Selection | Checklist |
 |:---:|:---:|
-| ![角色选择](./screenshot-role-select.png) | ![清单页面](./screenshot-checklist-progress.png) |
+| ![Role Select](./screenshot-role-select.png) | ![Checklist](./screenshot-checklist-progress.png) |
 
-## 功能特点
+## Features
 
-- **角色选择** - 根据学历背景（大学在读/毕业/硕士在读/硕士毕业）显示对应清单
-- **材料清单** - 严格按照德国驻上海总领事馆官方要求整理
-- **进度追踪** - 勾选标记材料准备状态，实时显示完成进度
-- **搜索功能** - 快速搜索特定材料
-- **标签提示** - 显示原件、复印件、翻译等材料类型标签
-- **数据持久化** - 关闭应用后保留勾选状态
-- **导入/导出** - 支持导出 Excel 和从 Excel 导入数据
+- **Role Selection** - Display corresponding checklist based on academic background (Bachelor in progress/graduated, Master in progress/graduated)
+- **Materials Checklist** - Organized strictly according to official requirements from German Consulate General Shanghai
+- **Progress Tracking** - Check off prepared materials with real-time completion progress
+- **Search** - Quickly search for specific materials
+- **Type Labels** - Display labels for originals, copies, translations, etc.
+- **Data Persistence** - Checked items are preserved after closing the app
+- **Import/Export** - Support exporting to Excel and importing from Excel
 
-## 技术栈
+## Tech Stack
 
-- [Tauri](https://tauri.app/) v2 - 桌面应用框架
-- [React](https://react.dev/) 18 - UI 框架
-- [TypeScript](https://www.typescriptlang.org/) - 类型安全
-- [Tailwind CSS](https://tailwindcss.com/) - 样式框架
-- [Zustand](https://zustand-demo.pmnd.rs/) - 状态管理
-- [Framer Motion](https://www.framer.com/motion/) - 动画
+- [Tauri](https://tauri.app/) v2 - Desktop framework
+- [React](https://react.dev/) 18 - UI framework
+- [TypeScript](https://www.typescriptlang.org/) - Type safety
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [Zustand](https://zustand-demo.pmnd.rs/) - State management
+- [Framer Motion](https://www.framer.com/motion/) - Animations
 
-## 安装
+## Installation
 
-### 从 Release 下载
+### Download from Release
 
-前往 [Releases](https://github.com/leoomo/german_visa_app_materialschecklist/releases/latest) 页面下载最新版本：
+Go to [Releases](https://github.com/leoomo/german_visa_app_materialschecklist/releases/latest) page to download the latest version:
 
-- **macOS**: 下载 `_aarch64.dmg` 文件（Apple Silicon）
-- **Windows**: 下载 `_x64-setup.exe` 文件
+- **macOS**: Download `_aarch64.dmg` (Apple Silicon)
+- **Windows**: Download `_x64-setup.exe`
 
-### 自行构建
+### Build from Source
 
 ```bash
-# 克隆项目
+# Clone repository
 git clone https://github.com/leoomo/german_visa_app_materialschecklist.git
 cd visa-checklist
 
-# 安装依赖
+# Install dependencies
 npm install
 
-# 开发模式
+# Development mode
 npm run dev
 
-# 构建桌面应用
+# Build desktop app
 npm run tauri build
 ```
 
-## 使用说明
+## Usage
 
-1. 选择您的学历背景（大学在读/毕业/硕士在读/硕士毕业）
-2. 查看对应的签证申请材料清单
-3. 勾选已准备好的材料
-4. 关注顶部进度条，了解整体准备情况
+1. Select your academic background (Bachelor in progress/graduated, Master in progress/graduated)
+2. View the corresponding visa application materials checklist
+3. Check off materials you have prepared
+4. Monitor the progress bar at the top for overall preparation status
 
-## 数据来源
+## Data Sources
 
-- 《上海留学签证特别提示》2025年10月版
-- [德国驻华使领馆官方网站](https://china.diplo.de/cn-zh/service/visa-einreise/nationales-visum-fuer-studium)
+- "Shanghai Student Visa Special Notice" October 2025 Edition
+- [German Embassy/Consulates in China Official Website](https://china.diplo.de/cn-zh/service/visa-einreise/nationales-visum-fuer-studium)
 
-## 致谢
+## Acknowledgements
 
-- 德国驻上海总领事馆签证处
-- [Phosphor Icons](https://phosphoricons.com/) - 图标库
-- [Fontshare](https://www.fontshare.com/) - 字体 (Satoshi, Cabinet Grotesk)
+- Visa Section, German Consulate General Shanghai
+- [Phosphor Icons](https://phosphoricons.com/) - Icon library
+- [Fontshare](https://www.fontshare.com/) - Fonts (Satoshi, Cabinet Grotesk)
 
-## 开源许可
+## License
 
-本项目基于 [MIT](./LICENSE) 许可证开源。
+This project is open-sourced under the [MIT](./LICENSE) license.
 
 ---
 
-*本清单仅供参考，请以德国驻华使领馆官方最新发布为准。*
+*This checklist is for reference only. Please refer to the latest official release from German Embassy/Consulates in China.*
